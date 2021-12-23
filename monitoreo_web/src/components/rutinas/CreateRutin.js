@@ -21,16 +21,53 @@ const CreateRutin = (props) => {
     
             return today;
         }
-        const setIdAdc = (id)=>{
-
-            values.Actividades.push(id);
-            values.nActividades+=1;
-            console.log(values.nActividades);
-
-            values.Fecha_de_Creacion=fechaact();
+        const setIdAdc = (id,e,nam)=>{
+            e.preventDefault();
+            if(values.Actividades.includes(id)){
+                const index = values.Actividades.indexOf(id);
+                if (index > -1) {
+                  values.Actividades.splice(index, 1);
+                }
+                values.nActividades-=1
+            }else{
+                values.Actividades.push(id);
+                values.nActividades+=1;
+                values.Fecha_de_Creacion=fechaact();
+            }
+            
+            
+            addNom(nam);
+            console.log(values.Actividades);
 
         }
 
+        const [nomlist,setnomList]=useState([]);
+
+        const addNom = async (id) =>{
+            var auxnom = nomlist;
+            if(auxnom.includes(id)){
+                const index = auxnom.indexOf(id);
+                if (index > -1) {
+                  auxnom.splice(index, 1);
+                }
+            }else{
+                nomlist.push(id);
+            }
+            setrev(!rev);
+            
+            }
+
+        const fillNombres = () =>{
+            
+            lista.map(alfa=>{
+                values.Actividades.map(beta=>{
+                    if(!(alfa.id.localeCompare(beta))){
+                        if(!(nomlist.includes(alfa.Nombre_Ejercicio))){
+                            nomlist.push(alfa.Nombre_Ejercicio);
+                        }}})})
+        }
+
+       
         // Funciones de Lista de Ejercicios--------------------------------------------------
         const [lista, setlista] = useState([]);
         const listarEjer = async () =>{ //Rescate on Demand de los Ejercicios en Firestore
@@ -43,6 +80,7 @@ const CreateRutin = (props) => {
             });
             
         }
+
         useEffect(()=>{
             listarEjer();
         }, []);
@@ -52,28 +90,34 @@ const CreateRutin = (props) => {
             setValues({...doc.data()})
         }
 
-        useEffect(()=> {                  //Validacion si se a rescatado un id
+        useEffect(()=> {                  //Validacion si se a llegado con el id de una rutina
             if (props.idEx === ''){
                 setValues({...valores_iniciales});
             }else{
                 manipId(props.idEx);
+                console.log(values.Actividades);
+                fillNombres();
+                console.log(nomlist);
+                
             }
         },[props.idEx])
 
-        const [values, setValues] =  useState(valores_iniciales); //set de valores iniciales y autocompletados
+        const [values, setValues] =  useState(valores_iniciales); //set de valores iniciales de la rutina
 
-        const lector = (e) =>{              //Escritura de valores on-Demand del objeto
+        const lector = (e) =>{              //Escritura de valores on-Demand de la rutina que se EDITA
             const {name, value} = e.target;
             setValues({...values, [name]: value})
         }
 
-
+        const [rev,setrev]=useState(1);
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
             e.preventDefault();
             props.addOrEdit(values);
             setValues   ({...valores_iniciales})         
         }
+
+
 
         return (
             <form className="card card-body" onSubmit={actualizar} >
@@ -97,6 +141,17 @@ const CreateRutin = (props) => {
                     value= {values.Descripcion}                   
                     />
                 </div>
+
+                <div className="listActiv">
+                    <ul>   
+                    {nomlist.map(nombre=>(                        
+                        <li key={nombre}>{nombre}</li>
+                    ))}
+                    
+                    </ul>
+                </div>
+                
+
                 <div className="col-md-8">
             <h1>Ejercicios</h1>
             {lista.map( exer => (
@@ -105,7 +160,7 @@ const CreateRutin = (props) => {
                         <div className="d-flex justify-content-between">
                         <h4><b>{exer.Nombre_Ejercicio}</b></h4>
                         <div>
-                            <i className="material-icons" onClick={()=>setIdAdc(exer.id)}>add_box</i>
+                            <button className="material-icons" onClick={(e)=>setIdAdc(exer.id,e,exer.Nombre_Ejercicio)}>add</button>
                         </div>
                         </div>
                         <p>Instrucciones:{exer.Instrucciones}   |   Exigencia:{exer.Exigencia} </p>

@@ -43,8 +43,8 @@ const ManageRutin = () =>{
 
     return(
         <div>
-            <CreateRutin {...{addOrEdit, idEx, lista}}/> 
-            
+            { idEx?
+            <CreateRutin {...{addOrEdit, idEx, lista}}/>:
             <div className="col-md-8">
             <h1>Rutinas</h1>
             {lista.map( exer => (
@@ -63,7 +63,7 @@ const ManageRutin = () =>{
                 </div>
 
             ))}
-            </div>
+            </div>}
         </div>
     )
 

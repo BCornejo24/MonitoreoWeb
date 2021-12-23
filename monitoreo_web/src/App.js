@@ -3,8 +3,8 @@ import './App.css';
 import Head from './components/header/Head';
 import {Route, BrowserRouter as Router} from "react-router-dom";
 import home from './components/home/home';
-import ManageExer from './components/ejercicios/ManageExer';
-import ManageRutin from './components/rutinas/ManageRutin';
+import ManageExer from './components/ejercicios/ManageExer'; //Ejercicio
+import MenuRutina from './components/rutinas/MenuRutina'; //Rutinas
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
 
         <Route path="/" exact component={home}/>
         <Route path="/Manageexer" component={ManageExer}/>
-        <Route path="/ManageRutin" component={ManageRutin}/>
+        <Route path="/MenuRutina" component={MenuRutina}/>
       </Router>
       hi
     </div>
