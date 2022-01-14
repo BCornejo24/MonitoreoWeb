@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from "react"
-import CreateRutin from "./CreateRutin"
+import cre_editGroups from "./cre_editGroups";
 import {db} from '../../firebase-config'
+import cre_editGroups from "./cre_editGroups";
 
 
 const CrearRutina = () =>{
@@ -9,10 +10,10 @@ const CrearRutina = () =>{
 
     const addOrEdit = async (linkObject) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            if (idEx === ''){
-            await db.collection('Rutinas').doc().set(linkObject)
-            console.log("Rutina guardada")
+            await db.collection('G_Permiso').doc().set(linkObject)
+            console.log("Grupo permiso guardado")
            }else{
-            await db.collection('Rutinas').doc(idEx).update(linkObject)
+            await db.collection('G_Permiso').doc(idEx).update(linkObject)
             console.log("Rutina Actualizada")
            }
            setidEx('');
@@ -20,7 +21,7 @@ const CrearRutina = () =>{
 
     return(
         <div>
-            <CreateRutin {...{addOrEdit, idEx, lista}}/> 
+            <cre_editGroups {...{addOrEdit, idEx, lista}}/> 
         </div>
     )
 

@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react"
-import CreateRutin from "./CreateRutin"
+import cre_editManC from "./cre_editManC";
 import {db} from '../../firebase-config'
 
 
@@ -9,18 +9,25 @@ const CrearRutina = () =>{
 
     const addOrEdit = async (linkObject) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            if (idEx === ''){
-            await db.collection('Rutinas').doc().set(linkObject)
+            await db.collection('ManagerColegio').doc().set(linkObject)
             console.log("Rutina guardada")
            }else{
-            await db.collection('Rutinas').doc(idEx).update(linkObject)
+            await db.collection('ManagerColegio').doc(idEx).update(linkObject)
             console.log("Rutina Actualizada")
            }
-           setidEx('');
+           volver();
+    }
+
+    const volver = (e) =>{
+        if (e!==null){
+            e.preventDefault();
+        }
+        setidEx('');
     }
 
     return(
         <div>
-            <CreateRutin {...{addOrEdit, idEx, lista}}/> 
+            <cre_editManC {...{addOrEdit, idEx, lista}}/> 
         </div>
     )
 

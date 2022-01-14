@@ -1,18 +1,23 @@
+/*
+Grado
+Letra
+Año
+alumnos
+*/
 import React, {useState, useEffect} from 'react';
-import { db } from '../../firebase-config';
-import Listar from '../comun/listar';
+//import { db } from '../../firebase-config';
+//import Listar from '../comun/listar';
 
-const CreateRutin = (props) => {
+const Cre_editCurso = (props) => {
     const valores_iniciales = {
-        Nombre_Rutina:'',
-        Fecha_de_Creacion:'',
-        Puntaje_Total:'0',
-        Descripcion:'',
-        nActividades:0,
-        Actividades:[],
+        Grado:'',
+        Letra:'',
+        Ano:'0',
+        AlumnoID:[],
         };
 
         const [rev,setrev]=useState(true);
+
         const fechaact = () =>{                 //Retorno de Fecha actual para la fecha de creacion
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
@@ -23,23 +28,21 @@ const CreateRutin = (props) => {
     
             return today;
         }
+/*
         const setIdAdc = (id,e,nam)=>{
             e.preventDefault();
-            if(values.Actividades.includes(id)){
-                const index = values.Actividades.indexOf(id);
+            if(values.AlumnoID.includes(id)){
+                const index = values.AlumnoID.indexOf(id);
                 if (index > -1) {
-                  values.Actividades.splice(index, 1);
+                  values.AlumnoID.splice(index, 1);
                 }
-                values.nActividades-=1
             }else{
-                values.Actividades.push(id);
-                values.nActividades+=1;
-                values.Fecha_de_Creacion=fechaact();
+                values.AlumnoID.push(id);
             }
-            
+            values.Ano=fechaact();
             
             addNom(nam);
-            console.log(values.Actividades);
+            //console.log(values.Actividades);
 
         }
 
@@ -62,10 +65,10 @@ const CreateRutin = (props) => {
         const fillNombres = () =>{
             
             lista.map(alfa=>{
-                values.Actividades.map(beta=>{
+                values.AlumnoID.map(beta=>{
                     if(!(alfa.id.localeCompare(beta))){
-                        if(!(nomlist.includes(alfa.Nombre_Ejercicio))){
-                            nomlist.push(alfa.Nombre_Ejercicio);
+                        if(!(nomlist.includes(alfa.Nombre+' '+alfa.Apellido))){
+                            nomlist.push(alfa.Nombre+' '+alfa.Apellido);
                         }}})})
             setrev(!rev);
         }
@@ -73,14 +76,29 @@ const CreateRutin = (props) => {
        
         // Funciones de Lista de Ejercicios--------------------------------------------------
         const [lista, setlista] = useState([]);
+        const [listb, setlistb] = useState([])
+
+        const compid = () => {
+            const docss = [];
+            lista.map((a)=>{
+                const aux = await db.collection('Usuarios').doc(id).get();
+                if(a.id === aux.id){
+                    docss.push({...aux.data(), id:aux.id});
+                }
+            })
+            setlistb(docss);
+        }
+
+
         const listarEjer = async () =>{ //Rescate on Demand de los Ejercicios en Firestore
-            db.collection("Ejercicios").onSnapshot((querySnapshot) => {
+            db.collection("Alumnos").onSnapshot((querySnapshot) => {
                 const docs = [];
                 querySnapshot.forEach((doc)=>{
                     docs.push({...doc.data(), id:doc.id});
                 });
                 setlista(docs);
             });
+            compid();
             
         }
 
@@ -96,14 +114,14 @@ const CreateRutin = (props) => {
             const doc = await db.collection('Rutinas').doc(id).get();
             setValues({...doc.data()})
             fillNombres();
-        }
+        }*/
 
         useEffect(()=> {                  //Validacion si se a llegado con el id de una rutina
-            if (props.idEx === ''){
+           // if (props.idEx === ''){
                 setValues({...valores_iniciales});
-            }else{
+            /*}else{
                 manipId(props.idEx);
-               }
+               }*/
         },[props.idEx])
 
 
@@ -118,13 +136,14 @@ const CreateRutin = (props) => {
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
             e.preventDefault();
+            values.Ano=fechaact();
             props.addOrEdit(values);
             setValues   ({...valores_iniciales})
             freenom();
             console.log(nomlist);
         }
 
-        const freenom = () =>{
+       /* const freenom = () =>{
             var aux = nomlist;
             aux.map(val=>{
                 if(nomlist.includes(val)){
@@ -141,55 +160,32 @@ const CreateRutin = (props) => {
         useEffect(()=>{
             if(props.idEx!==''){fillNombres();}
         },[values.Actividades])
-
+*/
         return (
             <form className="card card-body" onSubmit={(e)=>{actualizar(e)}} >
                 <div className="form-group">
                     <input 
                     type="text" 
                     className="form-control" 
-                    placeholder="Nombre de la Rutina" 
-                    name="Nombre_Rutina" 
+                    placeholder="Grado (I, II, III...)" 
+                    name="Grado" 
                     onChange={lector}
-                    value= {values.Nombre_Rutina}                   
+                    value= {values.Grado}                   
                     />
                 </div>
                 <div className="form-group">
                     <input 
                     type="text" 
                     className="form-control" 
-                    placeholder="Descripcion" 
-                    name="Descripcion" 
+                    placeholder="Letra" 
+                    name="Letra" 
                     onChange={lector}
-                    value= {values.Descripcion}                   
+                    value= {values.Letra}                   
                     />
                 </div>
-                    <h5>Ejecicio en la Rutina</h5>
-                    <Listar list={nomlist}/>
                     <br />
                     <br />
-                <div className="col-md-8">
-            <h1>Ejercicios</h1>
-            {lista.map( exer => (
-                <div className="card mb-1" key={exer.id}>
-                    <div className="card-body">
-                        <div className="d-flex justify-content-between">
-                        <h4><b>{exer.Nombre_Ejercicio}</b></h4>
-                        <div>
-                            <button className="material-icons" onClick={(e)=>setIdAdc(exer.id,e,exer.Nombre_Ejercicio)}>add</button>
-                        </div>
-                        </div>
-                        <p>Instrucciones:{exer.Instrucciones}   |   Exigencia:{exer.Exigencia} </p>
-                        <p>Duracion/Repeticiones: {exer.Duracion_Repeticiones} minuto/veces</p>
-                        <p>Puntaje maximo: {exer.Puntaje_Maximo}   |   Estado: {(exer.exigencia)? "habilitado" : "deshabilitado"}</p>
-                    </div>
-                </div>
-
-            ))}
-            </div>
-
-
-               
+                           
                 <button className="btn btn-primary btn-block">{
                     props.idEx === ''? 'Guardar' : 'Actualizar'
                 }</button>
@@ -199,4 +195,4 @@ const CreateRutin = (props) => {
     
 };
 
-export default CreateRutin
+export default Cre_editCurso
