@@ -2,16 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -28,11 +18,314 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.createUsuario{
+  margin-top: 100%;
+  background-color: #F5F5F5;
+}
+
+.menu-btn{
+  background-color:#3B3C3E;
+  display: grid;
+  padding-left: 100vh;
+  position: absolute;
+  size:10vh 10vh ;
+  width: 25vh;
+  z-index: 1;
+  box-sizing: content-box;
+  border-style: dashed;
+  border-color: chocolate;
+}
+
+.title-ground{
+  background-color: rgb(36, 42, 48);
+}
+
+.subtitle-ground{
+  background-color: rgb(41, 45, 49);
+}
+
+.crearUsuario{
+  padding-top: 3px;
+}
+
+.menuUsuario{
+  align-content: center;
+  height: 10vh;
+  padding-bottom: 3px;
+}
+
+.createUsuario{
+  align-self: center;
+}
+
+
+.col-md-8{
+  display:grid;
+  height: 25vh;
+  padding-left: 15vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-md-9{
+  display: grid;
+  width: 60%;
+  padding-left: 15%;
+  height: 25vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-md-23{
+  display:inline-flex;
+  width: 90%;
+  padding-left: 0%;
+  height: 25vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-mb-15{
+   border-color: #282c34;
+   border-top: 5vh;
+   height: 20vh;
+}
+
+.input[type=text] {
+  width: 80%;
+  height: 20vh;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+.DivToScroll{   
+  background-color: #F5F5F5;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 0 4px 0;
+  color: #3B3C3E;
+  font-size: 12px;
+  font-weight: bold;
+  left: -1px;
+  padding: 10px 7px 5px;
+}
+
+.DivWithScroll{
+  border-style: solid;
+  border-color: grey  ;
+  display: grid;
+  padding-right: -100%;
+  height:320px;
+  overflow:scroll;
+  overflow-x:hidden;
+}
+
+.col-md-12{
+  width: 50vh;
+  height: 25vh;
+  padding-left: 15vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-md-12-2{
+  width: 150vh;
+  height: 25vh;
+  padding-right: 12px;
+  padding-left: 15vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleCrearRutina{
+  height: 100%;
+}
+
+.card-mb-23{
+  border-style:solid;
+  border-color: #555;
+  background-color:#3B3C3E;
+}
+/*Barra Nav*/
+.bloqueNavegacion{
+  z-index: 3;
+}
+/*Categoria*/
+.bloqueSup{
+  z-index: 2;
+}
+/*SubMenu*/
+.bloqueMenu{
+  z-index: 1;
+}
+/*Funcionalidades*/
+.bloqueCuerpo{
+  display:flexbox ;
+  position: absolute;
+  width: 80%;
+  padding-left: 30vh;
+  z-index: 0;
+}
+
+
+.bloqueCuerpo-up{
+  display:flex ;
+  border-style: solid;
+  border-color: #3B3C3E;
+  justify-content: center;
+  
+  width: 30%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.Space{
+  padding-inline-start: 80vh;
+}
+
+.bloqueCuerpo-B{
+  display:flexbox ;
+  position: absolute;
+  width: 45%;
+  padding-left: 10vh;
+  z-index: 0;
+}
+
+/*listas*/
+.col-md-view{
+  height: 70vh;
+  overflow-y:scroll;
+  
+  display:flexbox ;
+  position: absolute;
+  width: 80%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.col-md-view-b{
+  height: 40vh;
+  overflow-y:scroll;
+  display:flexbox ;
+  position: absolute;
+  width: 100%;
+  padding-left: 50vh;
+  z-index: 0;
+}
+
+.menuOpc-L{
+  display: grid;
+}
+
+
+.card-body-left{
+  display: flex;
+  width:100%;
+}
+
+.twoPanels{
+  display:table-row;
+}
+
+.col-md-view-und{
+  height: 40vh;
+  overflow-y:scroll;
+  display:flexbox ;
+  position: absolute;
+  width: 60%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.col-md-view-und-ex{
+  height: 40vh;
+  overflow-y:scroll;
+  display:flexbox ;
+  position: absolute;
+  width: 81%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.col-md-view-und-short{
+  height: 20vh;
+  overflow-y:scroll;
+  display:flow-root ;
+  position: absolute;
+  width: 20%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.exViewPermisos{
+  padding-left: 90vh;
+  width: 150vh;
+}
+
+.list-framed{
+  display: flex;
+  padding-bottom: 15vh;
+}
+
+.list-framed-short{
+  
+  padding-left: 50vh;
+  width : 50vh;
+  padding-bottom: 15vh;
+}
+
+.form-control{
+  color: black;
+  background-color: white;
+}
+
+.subMenuCurso{
+  background-color: rgb(45, 49, 61);
+  height: 5vh;
+}
+
+.subBloqueMenu{
+  background-color: rgb(45, 49, 61);
+  height: 6vh;
+}
+
+.list-exv{
+  height: 20vh;
+  overflow-y:scroll;
+  display:flexbox ;
+  position: absolute;
+  justify-content: flex-end;
+  width: 41%;
+  padding-left: 10vh;
+  z-index: 0;
+}
+
+.list-exv-b{
+  height: 40vh;
+  overflow-y:scroll;
+  display:flexbox ;
+  position: absolute;
+  justify-content: flex-end;
+  width: 60%;
+  padding-left: 0vh;
+  z-index: 0;
+}
+
+.r-dysp{
+  float: right;
+  padding-right: 20vh;
+  padding-top: 7vh;
+}
+
+.leftBloq{
+  float: left;
+  width: 10vh;
+}
+
+.rightBloq{
+  float: right;
 }

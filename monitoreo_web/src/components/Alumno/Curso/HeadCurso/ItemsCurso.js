@@ -1,0 +1,21 @@
+export const ItemsCurso = [
+
+{
+    title: 'Crear',
+    path:'Crear',
+    block:'Profesor_B',
+    cName:'nav-text'
+},
+{
+    title: 'Ver',
+    path:'Ver',
+    block:'Profesor_B',
+    cName:'nav-text'
+},
+{
+    title: 'Asignar',
+    path:'Asignar',
+    block:'true',
+    cName:'nav-text',
+}
+]

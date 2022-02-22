@@ -8,9 +8,8 @@ const Createexer = (props) => {
         Duracion_Repeticiones:'',
         Instrucciones:'',
         Exigencia:'Por Determinar',
-        Puntaje_Maximo:'0',
         Metricas:'NA',
-        Estado:'0'
+        Estado:'1'
         };
 
         const manipId = async (id) => {    //Actualizacion de datos en form en base al id
@@ -36,16 +35,22 @@ const Createexer = (props) => {
 
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
+            if(values.Exigencia=='Por Determinar' ||  values.Metricas=='Por Determinar'){
+                alert('Debe de elegir, de la lista disponible para la exigencia o el tipo de ejercicio')
+            }else{
             e.preventDefault();
             props.addOrEdit(values);
             setValues   ({...valores_iniciales})         
+        }
         }
 
         return (
             <form className="card card-body" onSubmit={actualizar} >
                 <div className="form-group">
                     <input 
-                    type="text" 
+                    type="text"
+                    required 
+                    autocomplete="off"
                     className="form-control" 
                     placeholder="Nombre del Ejercicio" 
                     name="Nombre_Ejercicio" 
@@ -56,8 +61,10 @@ const Createexer = (props) => {
                 <div className="form-group">
                     <input 
                     type="text" 
+                    required
+                    autocomplete="off"
                     className="form-control" 
-                    placeholder="ingrese las Instrucciones del ejercicio" 
+                    placeholder="Ingrese las Instrucciones del ejercicio" 
                     name="Instrucciones" 
                     onChange={lector}
                     value={values.Instrucciones}
@@ -66,14 +73,26 @@ const Createexer = (props) => {
                 
                 <div className="form-group">
                     <input 
-                    type="text" 
+                    type="text"
+                    required 
+                    autocomplete="off"
                     className="form-control" 
-                    placeholder=" ingrese la Duracion o Repeticiones del ejercicio" 
+                    placeholder=" Ingrese la Duracion o Repeticiones del ejercicio" 
                     name="Duracion_Repeticiones" 
                     onChange={lector}
                     value={values.Duracion_Repeticiones} 
                     />
                 </div>
+
+                <div className="form-group">
+                    <div>Escoja la Metrica del ejercicio</div>
+                    <select id="exEjerc" className="form-control" name="Exigencia" onChange={lector}  value={values.Metricas}>
+                        <option value="Por Determinar">Por Determinar</option>
+                        <option value="Duracion">Duracion</option>
+                        <option value="Tiempo">Tiempo</option>
+                    </select>
+                </div>
+
                 <div className="form-group">
                     <div>Escoja la exigencia del ejercicio</div>
                     <select id="exEjerc" className="form-control" name="Exigencia" onChange={lector}  value={values.Exigencia}>

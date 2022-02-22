@@ -6,7 +6,7 @@ const[mostrar,setmostrar]=useState([]);
 
 useEffect(()=>{
 setmostrar(props.list)
-},props.list)
+},[props.list])
 
 
 

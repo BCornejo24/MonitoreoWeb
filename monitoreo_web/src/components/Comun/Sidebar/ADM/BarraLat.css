@@ -1,0 +1,95 @@
+.nav-bar{
+    padding-left: 20vh;
+    background-color: rgb(36, 42, 48);
+    padding-left: 2vh;
+    height: 80px;
+    z-index: 1;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.menu-bars{
+    background-color: rgb(36, 42, 48);
+    margin-left: 2rem;
+    z-index: 1;
+    font-size: 2rem;
+    background: none;
+}
+
+.menuButton{
+    margin-top: 0%;
+    margin-left: 22%;
+    z-index: 1;
+    width: 33vh;
+    height: 4vh;
+}
+
+.nav-menu{
+    background-color: rgb(36, 42, 48);
+    width: 250px;
+    height:100vh;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+
+}
+
+.nav-menu.active{
+    left: 0;
+    z-index: 1;
+    transition: 350ms;
+}
+
+.nav-text{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    z-index: 1;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height:  60px;
+}
+
+.nav-text a {
+    text-decoration: none;
+    font-size: 18px;
+    width: 95%;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border-radius: 0;
+}
+
+.nav-text a:hover{
+    color: antiquewhite;
+    z-index: 1;
+    background-color: cornflowerblue;
+}
+
+.nav-menu-items{
+    list-style-type: none;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-toogle{
+    width: 100%;
+    z-index: 1;
+    height:  80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+
+span{
+    margin-left: 16px;
+    z-index: 1;
+}
