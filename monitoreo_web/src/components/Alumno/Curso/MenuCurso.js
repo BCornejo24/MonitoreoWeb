@@ -27,7 +27,7 @@ function MenuCurso() {
         <div className='subMenuCurso'>
             <h3>Menu Curso</h3>
             <div className='subBloqueMenu'>
-                    <HeadCurso/>
+                    <HeadCurso perm={name}/>
                 </div>
                 <div>
                 <Routes>

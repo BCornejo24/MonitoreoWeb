@@ -30,7 +30,7 @@ class HeadCurso extends Component{
                     {ItemsCurso.map((cat, index) => {
                         
                         return(<>
-                        {(this.state.brand===cat.block)? ''
+                        {(this.props.perm===cat.block)? ''
                                 :
                                 
                             <li key={index+cat.title} className={cat.cName}>
