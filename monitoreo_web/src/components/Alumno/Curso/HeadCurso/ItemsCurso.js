@@ -15,7 +15,7 @@ export const ItemsCurso = [
 {
     title: 'Asignar',
     path:'Asignar',
-    block:'true',
+    block:'ManagerColegio_B',
     cName:'nav-text',
 }
 ]

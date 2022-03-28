@@ -58,6 +58,38 @@
   align-self: center;
 }
 
+.divleft{
+  float:left;
+  width: 50%;
+  }
+  
+  .divright{
+  float:right;
+  width: 50%;
+  }
+  .divright-b{
+    float:right;
+    width: 40%;
+    }
+  .bdivleft{
+    float:left;
+    width: 80%;
+    }
+    
+    .bdivright{
+    float:right;
+    width: 20%;
+    }
+
+.topdivleft{
+float:left;
+width: 50%;
+}
+
+.topdivright{
+float:right;
+width: 50%;
+}
 
 .col-md-8{
   display:grid;

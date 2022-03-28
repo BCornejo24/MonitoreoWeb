@@ -7,6 +7,7 @@ function ExViewCurso (props){
     const [lsAS,setlsAS]=useState([])
     const [AuxDoc,setAuxDoc]=useState()
     const [rend,setrend]=useState(0)
+    const [sec,setsec]=useState(0)
 
     const cookie = new Cookies
 
@@ -32,7 +33,7 @@ function ExViewCurso (props){
 
     const listarDocumentoProf = async () =>{
         
-    var cod 
+    var cod ;
     await db.collection('Profesores').where('UsuarioID','==',cookie.get('id_mayor')).get().then(querySnapshot=>{
         //await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
             querySnapshot.forEach(snapshot=>{
@@ -44,7 +45,7 @@ function ExViewCurso (props){
 
     console.log(cod)
         
-    await db.collection('Curso').where("ProfesorID","==",cod).get().then((querySnapshot)=>{ 
+    await db.collection('Cursos').where("ProfesorID","==",cod).get().then((querySnapshot)=>{ 
         querySnapshot.forEach((doc)=>{
             console.log(doc.data())
                 lCur.push({...doc.data(), id:doc.id})
@@ -56,6 +57,7 @@ function ExViewCurso (props){
     lCur.map((curs)=>{
 				bringAS(curs.id)		
 		})
+    //lsAS.map(asg=>recQsec(asg))
     console.log(lsAS)
     }
 
@@ -161,9 +163,8 @@ function ExViewCurso (props){
 
     const bringAS = async (id) =>{
         var auxcode = id
-			await db.collection('Asignado').where('CursoID','==',auxcode).orderBy('timestamp',"desc").limit(1).get().then((querySnapshot)=>{
-                console.log('querySnapshot')
-                console.log(querySnapshot)
+			await db.collection('Asignado').where('CursoID','==',auxcode).orderBy('timestamp',"desc").limit(1).get().then(async(querySnapshot)=>{
+                
 /*                querySnapshot.forEach(asg=>{
                     console.log(asg.data())
                     console.log(asg.data())
@@ -174,24 +175,37 @@ function ExViewCurso (props){
 
                     
                 })*/
+                var seciones = 0
 			if(querySnapshot.empty){
 				var valAsign = {
+                    id:'',
+                    seciones:'sin asignar',
 					idCur:auxcode,
 					Fecha_Asignada:'Sin Asinacion'					
 				};
 					lsAS.push(valAsign)	
 				}else{querySnapshot.forEach((asg)=>{
-				var valAsign = {
-					idCur:auxcode,
-					Fecha_Asignada:asg.data().Fecha_de_Creacion
-				};
-					lsAS.push(valAsign)
+                    
+                    db.collection('SecionEjercicio').where('AsignadoID','==',asg.id).get().then(
+                        querySnapshot=>{
+                        
+                        var valAsign = {
+                            id:asg.id,
+                            seciones:querySnapshot.size,
+                            idCur:auxcode,
+                            Fecha_Asignada:asg.data().Fecha_de_Creacion
+                        };
+                            lsAS.push(valAsign)
+            setrend(lsAS.length+lCur.length)}
+                    )
+                   
+				
 				})
 				
 			}
 			})
-            setrend(lsAS.length+lCur.length)
     }
+
 
     const enviar = (id,n,f) => {
         props.enviarID(id,n,f)
@@ -210,7 +224,9 @@ function ExViewCurso (props){
                     <p>Fecha de Rutina asignada "{asg.Fecha_Asignada}"</p>
                     {props.isnestprof? <button className="material-icons" onClick={()=>{enviar(Cur.id,Cur.Grado+'° '+Cur.Letra,asg.Fecha_Asignada)}}>add</button> :''}
                     </div>
+                    
                     </div>
+                    <p>Seciones realizadas : {asg.seciones}</p>
                     <p>Alumnos :{Cur.AlumnoID.length}</p><p>Periodo :{Cur.Ano}</p>
                     <p>Profesor: {Cur.Profesor===''?'':'Asignado'}</p>
                 </div>

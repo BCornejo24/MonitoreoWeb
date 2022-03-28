@@ -1,41 +1,49 @@
-import React from "react"
+import React, { useState } from "react"
 import { db } from "../../../../firebase-config";
 import CreEditCurso from "./CreEditCurso";
 
 
 const CreateCurso = () =>{
   
+    const [lisal,setLisal]= useState([])
+    const [auxC,setAuxC]=useState()
     
-    const addOrEdit = async (linkCur,arrus,arral) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
-        const niv = linkCur.Grado
-        const letr = linkCur.Letra
-        const time = linkCur.Ano
-        var aux = ''
-
-        var query = db.collection("Curso")
-        query = query.where('Ano','==',time)
-        query = query.where('Grado','==',niv)
-        query = query.where('Letra','==',letr)
-        query.get().then(querySnapshot=>{
-                if(!querySnapshot.empty){ //falso si encuentra algun documento
-                    alert('El curso que esta intentando crear:'+niv+'°'+letr+" ya existe.")
-                }else{
-                    db.collection('Cursos').doc().add(linkCur)
-                   
-                    arrus.map((linkus)=>{
-                        var pos=0
-                        var magma
+    const addOrEdit = async (linkCur,/*arrus,*/arral) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
         
-                    db.collection('Usuarios').add(linkus).then(docRef=>{
-                       magma=docRef.id
-                    })
-                    arral[pos].UsuarioID = magma
-                    db.collection('Alumno').add(arral[pos])
-                    pos++
-                    })
-                     }})}
+        setAuxC(linkCur)
+        console.log(auxC)
+        linkCur.AlumnoID.pop()
+        console.log(linkCur)
 
-   
+        console.log(arral)
+        for(const us of arral){
+            var pup = await crearAlumno(us)
+            linkCur.AlumnoID.push(pup)
+            console.log(linkCur.AlumnoID)
+        }
+        console.log('Afuera:')
+        console.log(linkCur.AlumnoID)
+        await db.collection('Cursos').add(linkCur)
+        }
+
+    
+                 const crearAlumno = async (obj) =>{
+                     console.log(obj)
+                    var aux
+                    await db.collection('Usuarios').add(obj).then(docRef=>{
+                        aux = docRef.id
+                        });
+    
+                    var alm={
+                        IMC:0,
+                        UsuarioID:aux
+                    }
+
+                    await db.collection('Alumno').add(alm).then(docRef=>{
+                        aux = docRef.id
+                        });
+                        return aux
+                 }
     return(
         <div>
             <CreEditCurso {...{addOrEdit,}}/>

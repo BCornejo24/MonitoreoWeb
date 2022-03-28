@@ -15,7 +15,7 @@ const ProfDashboard = (props) => {
   
 
   return(<><div>
-        <h1>Profesor</h1>
+        <h1>Profesor </h1>
         </div>
 <p onClick={()=>{seta(!a)}}>Mi Cuenta</p>
 {a?<div className="bloqueCuerpo">
@@ -23,7 +23,7 @@ const ProfDashboard = (props) => {
 </div>
 :
 <div>
-<ExViewCurso Prof={true}/>
+<ExViewCurso Prof={true}  isPrognest={true}/>
 </div>}
 </>)
 }

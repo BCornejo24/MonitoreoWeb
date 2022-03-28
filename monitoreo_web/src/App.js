@@ -23,6 +23,9 @@ import MenuUsuario from './components/Usuario/MenuUsuario';
 import MenuPermisos from './components/Permisos/MenuPermisos';
 import Validar from './components/Comun/validar';
 import PageNotFound from './components/Comun/PageNotFound';
+import BarraLatProf from './components/Comun/Sidebar/ADM/BarraLatProf';
+import BarraLatADM from './components/Comun/Sidebar/ADM/BarraLatADM';
+import BarraLatManC from './components/Comun/Sidebar/ADM/BarraLatManC';
 
 const App = (props) => {
 
@@ -68,17 +71,19 @@ const App = (props) => {
         <div>
           <div className="title-ground">
             <div className="bloqueNavegacion">
-            <BarraLat/>
+            {nom=='Profesor_B'?<BarraLatProf/>:''}
+            {nom=='Admin_B'?<BarraLatADM/>:''}
+            {nom=='ManagerColegio_B'?<BarraLatManC/>:''}
                     <Routes>
-                       <Route exact path='/Home'                element={rutes()}/>
-                      {(nom ==='Profesor_B' ||nom==='ManagerColegio_B') ?<Route path='/MenuAlumno/*'                element={<MenuAlumno/>} />:''}
-                      {nom==='ManagerColegio_B'?<Route path='/MenuProfesor/*'             element={<MenuProfesor/>} />  :''}         
-                      {nom==='Admin_B'?<Route path='/MenuEjercicios/*'            element={<MenuEjercicios/>} />:''}
-                      {nom==='Admin_B'?<Route path='/MenuRutina/*'                element={<MenuRutina/>} />:''}
-                      {(nom==='Admin_B' || nom ==='Profesor_B')?<Route path='/MenuManagerColegio/*'         element={<MenuManagerColegio/>} />:''}
-                      {nom==='Admin_B'?<Route path='/MenuUsuario/*'                element={<MenuUsuario/>} />:''}
-                      {nom==='Admin_B'?<Route path='/MenuPermisos/*'             element={<MenuPermisos/>} />:''}
-                      <Route index />:
+                      <Route exact path='/Home'                element={rutes()}/>
+                      <Route path='/MenuAlumno/*'                element={<MenuAlumno/>} />
+                      <Route path='/MenuProfesor/*'             element={<MenuProfesor/>} />       
+                      <Route path='/MenuEjercicios/*'            element={<MenuEjercicios/>} />
+                      <Route path='/MenuRutina/*'                element={<MenuRutina/>} />
+                      <Route path='/MenuManagerColegio/*'         element={<MenuManagerColegio/>} />
+                      <Route path='/MenuUsuario/*'                element={<MenuUsuario/>} />
+                      <Route path='/MenuPermisos/*'             element={<MenuPermisos/>} />
+                      <Route index />
                       <Route path='*' element={<PageNotFound/>}/>
                     </Routes>
             </div>          

@@ -34,8 +34,7 @@ function MenuCurso() {
                     
                     
                         <Route path='Crear'           element={<NuevoCurso/>}/>
-                        <Route path='Ver'             element={<VerCurso/>}/>
-                        
+                        <Route path='Ver'             element={<VerCurso/>}/>                        
                         <Route path='Asignar'         element={<AsignarRutina/>}/>
                     
                 </Routes>

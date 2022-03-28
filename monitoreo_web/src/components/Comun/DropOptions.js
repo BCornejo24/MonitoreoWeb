@@ -9,9 +9,10 @@ const DropOptions = (props) =>{
         value:''
     }
 
-    const listarOpc = () =>{
-        //db.collection("ManagerColegio").where('UsuarioID','==',props.IdManC).get().then((querySnapshot)=>{
-        db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
+    const listarOpcMC = () =>{        // Listar Profesores del Manager Colegio
+        db.collection("ManagerColegio").where('UsuarioID','==',props.IdManC).get().then((querySnapshot)=>{
+        //db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
+        
             querySnapshot.forEach((doc)=>{
                 var LProf = doc.data().Prof_list
                 const dat = []
@@ -19,14 +20,12 @@ const DropOptions = (props) =>{
                          //rescprof(prof)
                         var val = prof
                         db.collection('Profesores').doc(prof).get().then((auxl)=>{
-                            //console.log('profesor.data()')
                             var idus = auxl.data().UsuarioID
                             db.collection('Usuarios').doc(idus).get().then((profesor)=>{
                                 var display = profesor.data().Nombre+' '+profesor.data().Apellido
                                     var opcs = Bopcion
                                     opcs.display=display
                                     opcs.value=val
-                                    //console.log(opcs)
                                 dat.push({...opcs})
                                 setrend(dat.length)
                             })
@@ -37,10 +36,33 @@ const DropOptions = (props) =>{
             })
         }
 
+    const listarOpcPerm = () =>{
+        db.collection('G_Permiso').onSnapshot(querySnapshot=>{
+            var docs = []
+            querySnapshot.forEach(doc=>{
+               // console.log(doc.data())
+                var termino = doc.data().Nombre_G_Perm
+                termino = termino.slice(-2)
+                if(termino!=='_B'){
+                    var opcs = Bopcion
+                    opcs.display =doc.data().Nombre_G_Perm
+                    opcs.value = doc.id
+                    docs.push(opcs)
+                    setrend(docs.length)
+                }
+            })
+        setList(docs)
+        })
+    }    
     
 
     useEffect(()=>{
-        listarOpc()
+        if(props.choose == 'MC'){
+            listarOpcMC()
+        }
+        if(props.choose == 'GP'){
+            listarOpcPerm()
+        }
                 
     },[])
 

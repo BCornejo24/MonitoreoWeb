@@ -16,7 +16,7 @@ const CreateUser = () =>{
 
     return(
         <div >
-            <CreEditUser {...{addOrEdit,}}/> 
+            <CreEditUser tipe={'usuario'}{...{addOrEdit,}}/> 
         </div>
     )
 

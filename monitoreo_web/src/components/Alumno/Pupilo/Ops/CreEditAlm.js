@@ -10,8 +10,7 @@ const CreEditAlm = (props) => {
     const valores_iniciales_tipo={
         //Alumno
         IMC:'0',
-        UsuarioID:'',
-        Reprobado:false
+        UsuarioID:''
         }
     
 
@@ -26,24 +25,26 @@ const CreEditAlm = (props) => {
         })
     }
     
-    const recepcion = (linkObject)=>{
-      var aux= {
-        Pass: linkObject.Pass,
-        Nombre: linkObject.Nombre,
-        Apellido:linkObject.Apellido,
-        Correo:linkObject.Correo,
-        G_Permisos:Paux,
-        Habilitado:'1',
-        fIngreso: linkObject.fIngreso
-        }
+    const recepcionALM = (linkObject)=>{
+        //alert(linkObject)
+        var aux= {
+            Pass: linkObject.Pass,
+            Nombre: linkObject.Nombre,
+            Apellido:linkObject.Apellido,
+            Correo:linkObject.Correo,
+            G_Permisos:Paux,
+            Habilitado:'1',
+            fIngreso: linkObject.fIngreso
+            }
         
-       // valuest.uIngreso=fechaact();
-       if(props.isnested){
-        props.enviarID(aux,valuest)
-       }else{
-        props.addOrEdit(aux,valuest)
-}
+            if(props.isnested){
+                props.enviarID(aux)
+               }else{
+                props.addOrEdit(aux,valuest)
+            }
+        
     }
+
 
     useEffect(()=>{
         recPerm()
@@ -52,7 +53,7 @@ const CreEditAlm = (props) => {
 
         return (<div>Alumnos
                 <br />
-                <CreEditUser addOrEdit={recepcion} base={'Alumno'}/>
+                <CreEditUser addOrEdit={recepcionALM} base={'Alumno'}/>
                 </div>)
     
 };

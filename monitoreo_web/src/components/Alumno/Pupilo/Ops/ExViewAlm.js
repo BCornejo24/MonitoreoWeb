@@ -7,21 +7,31 @@ import { db } from "../../../../firebase-config";
 const ExViewAlm = (props) =>{
     const [listaUS]     = useState([]);
     const [listaAL]     = useState([])
-    const [ac,setac] = useState(0)   
+    const [ac,setac] = useState(0)
+    
+    const fecha = () =>{                 //Retorno de Fecha actual para la fecha de creacion
+        var today = new Date();
+        var yyyy = String(today.getFullYear()-1)
+        
+        return yyyy;
+    }
 
     const cookie = new Cookies
     const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
         
-       //  await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
-           await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
+        console.log('ExViewAlm')
+         await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
+       //    await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
+        console.log(querySnapshot)
             const prof = []    
             querySnapshot.forEach(snapshot=>{
                     prof.push(...snapshot.data().Prof_list)
 
                     prof.map((element)=>{
-                    
-                        db.collection('Curso').where("ProfesorID","==",element).get().then((snapshot)=>{
+                        console.log(element)
+                        db.collection('Cursos').where("ProfesorID","==",element).where('Ano','==',fecha()).get().then((snapshot)=>{
                             const caso = []
+                            console.log(snapshot)
                             snapshot.forEach((doc)=>{
                                 caso.push(...doc.data().AlumnoID)
                     
@@ -43,12 +53,6 @@ const ExViewAlm = (props) =>{
                     })
             })
         }).catch((e) => console.log(e))
-        console.log('listaUS')
-        console.log(listaUS)
-
-        console.log('listaAL')
-        console.log(listaAL)
-
     }
 
   
@@ -58,21 +62,22 @@ const ExViewAlm = (props) =>{
     }, []);
  
 
-    const mensaje = (id,n,a) =>{
+    /*const mensaje = (id,n,a) =>{
         props.enviarID(id,n,a)
-    }
+    }*/
 
     return(<>
                 <h1 className="r-dysp">Alumnos</h1>
                 <div className="col-md-8">
                     <div className='list-exv'>
                     {listaUS.map((sf)=>(
+                        
                             <div className="card mb-1" key={sf.id+ac}>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
                                     <h4><b>{sf.Nombre+' '+sf.Apellido}</b></h4>
                                         <div>
-                                            { props.isnested? <i className="material-icons text-danger" onClick={()=>{mensaje(sf.id,sf.Nombre,sf.Apellido)}}>add</i> : ''}
+                                            { /*props.isnested? <i className="material-icons text-danger" onClick={()=>{mensaje(sf.id,sf.Nombre,sf.Apellido)}}>add</i> : ''*/}
                                         </div>
                                     </div>
                                 <p>Correo :{sf.Correo}      </p>

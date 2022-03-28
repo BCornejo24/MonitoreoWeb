@@ -3,10 +3,6 @@ import CreateUser from './CreateUser'
 
 const CreateUsuario = () => {
 
-    useEffect(()=>{
-        console.log("alfa")
-    })
-
     return (<>
     <br />
         <div className='crearUsuario'>

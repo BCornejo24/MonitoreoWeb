@@ -1,0 +1,61 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Asignado",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "CursoID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Fecha_Asignada",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Asignado",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "CursoID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Fecha_Asignada",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Asignado",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "CursoID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Asignado",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "CursoID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

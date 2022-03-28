@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Cookies from 'universal-cookie';
 import { db } from '../../../firebase-config';
+import DropOptions from '../../Comun/DropOptions';
 
 
 const CreEditUser = (props) => {
@@ -57,11 +58,10 @@ const [base,setbase] = useState('Usuario')
 
         useEffect(()=> {            //Validacion si se a rescatado un id
             if (props.edit){
-                manipId(props.idEx);
+                manipId();
             }else{
                 setValues({...valores_iniciales});
                 setauxpa({...passAux});
-                manipId(props.idEx);
             }
         },[props.idEx])
 
@@ -85,12 +85,13 @@ const [base,setbase] = useState('Usuario')
             if(igual()){
               //  setdone(true)
                 values.fIngreso=fechaact()
+                //console.log(values)
                 
                    
                 props.addOrEdit(values)
 
-                setauxpa    ({...passAux});
-                setValues   ({...valores_iniciales});
+               // setauxpa    ({...passAux});
+               // setValues   ({...valores_iniciales});
         }}
             
 
@@ -103,7 +104,7 @@ const [base,setbase] = useState('Usuario')
         })
 
         return (
-            <form className="card card-body" onSubmit={()=>actualizar} >
+            <form className="card card-body" onSubmit={(e)=>actualizar(e)} >
                 <div className="form-group">
                     <input 
                     type="text"
@@ -178,7 +179,15 @@ const [base,setbase] = useState('Usuario')
                 </div>:
                 <div></div>                
                 }
-                
+
+                {props.base==undefined?
+                <div className="form-group">
+                   <select type="text" className="form-control" name="G_Permisos" onChange={lector} value= {values.G_Permisos}>
+                    <option value="base">Elija el Grupo de Permisos que Asignara</option>
+                    {<DropOptions choose={'GP'}/>}
+                </select> 
+                </div>
+                :''}
                 <button className="btn btn-primary btn-block">{
                     props.idEx === undefined? 'Guardar' : 'Actualizar'
                 }</button>

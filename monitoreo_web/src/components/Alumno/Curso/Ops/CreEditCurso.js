@@ -12,7 +12,7 @@ const CreEditCurso = (props) => {
         Grado:'base',
         Letra:'',
         Ano:'0',
-        AlumnoID:[],
+        AlumnoID:['a'],
         ProfesorID:'0'
         };
 
@@ -52,19 +52,37 @@ const CreEditCurso = (props) => {
      
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
-            if(liAlN.length>1){
             e.preventDefault();
+            if(liUsN.length>=0){
+                var t = valCur()
+                if(t){
             values.Ano=fechaact();
-            values.AlumnoID.push(...lus)
-            props.addOrEdit(values,liUsN,liAlN);
+            //values.AlumnoID.push(...lus)
+            props.addOrEdit(values,liUsN/*,liAlN*/);
             setValues   ({...valores_iniciales})
             setnomList ([])
+            setIsDisabled(false)
             setLAN([])
             setLUN([])
-            setLUS([])}else{
+            setLUS([])}}else{
                 alert('Debe de agregar al menos un Alumno al curso')
             }
             
+        }
+
+        const valCur = () =>{
+            var query = db.collection("Cursos")
+                query = query.where('Ano','==',fechaact())
+                query = query.where('Grado','==',values.Grado)
+                query = query.where('Letra','==',values.Letra)
+                query.get().then(querySnapshot=>{
+                    console.log(querySnapshot)
+                        if(!querySnapshot.empty){ //falso si encuentra algun documento
+                            alert('El curso que esta intentando crear: '+values.Grado+' °'+values.Letra+" ya existe.")
+                            return false
+                        }else{
+                            alert('El curso que esta intentando crear: '+values.Grado+' °'+values.Letra+" no existe.")}})
+                            return true
         }
 
         const nAlumno = (e) =>{
@@ -93,15 +111,15 @@ const CreEditCurso = (props) => {
             addNom(denom)
         }
 
-        const recepcionN = (usr,alm) =>{
+        const recepcionN = (usr) =>{
             
-            liAlN.push(alm)
+            
             liUsN.push(usr)
 
-            var nombre=usr.Nombre+' '+usr.Apellido, code=alm.id
+            var nombre=usr.Nombre+' '+usr.Apellido
 
             nomlist.push(nombre)
-            values.AlumnoID.push(code)
+            //values.AlumnoID.push(code)
             setcAl(false)
             
         }
@@ -131,7 +149,39 @@ const CreEditCurso = (props) => {
             }
         }
 
-        return (<div>
+            const readListas = async (e)=>{
+                e.preventDefault()
+               /* console.log('---Alumnos---')
+                liAlN.map(al=>{
+                    console.log(al)
+                })
+                console.log('-------------')
+                console.log('.')
+                console.log('---Usuarios---')
+                liUsN.map(us=>{
+                    console.log(us)
+                })
+                console.log('-------------')
+                */
+                var query = db.collection("Cursos")
+                query = query.where('Ano','==',fechaact())
+                query = query.where('Grado','==',values.Grado)
+                query = query.where('Letra','==',values.Letra)
+                query.get().then(querySnapshot=>{
+                    console.log(querySnapshot)
+                        if(!querySnapshot.empty){ //falso si encuentra algun documento
+                            alert('El curso que esta intentando crear:'+values.Grado+'°'+values.Letra+" ya existe.")
+                            return false
+                        }else{
+                            alert('El curso que esta intentando crear:'+values.Grado+'°'+values.Letra+" no existe.")}})
+                            return true
+                console.log(values.ProfesorID)
+            }
+
+        return (
+            <div>
+                <button onClick={(e)=>{readListas(e)}}>Test Curso</button>
+            <div>
             <form className="card card-body" onSubmit={(e)=>{actualizar(e)}} >
                 <div className="form-group">
                 <select type="text" disabled={isDisabled} className="form-control" name="Grado" onChange={(e)=>{lector(e);disabler(e);setcurG(true)}} value= {values.Grado}>
@@ -155,9 +205,9 @@ const CreEditCurso = (props) => {
                     value= {values.Letra}                   
                     />
                 </div>
-                <select type="text" className="form-control" name="ProfesorID" onChange={lector} value= {values.Grado}>
+                <select type="text" className="form-control" name="ProfesorID" onChange={lector} value= {values.ProfesorID}>
                     <option value="base">Elija al profesor de este curso</option>
-                    {<DropOptions IdManC={cookie.get('id_mayor')}/>}
+                    {<DropOptions choose={'MC'} IdManC={cookie.get('id_mayor')}/>}
                 </select> 
 
                     <br />
@@ -185,6 +235,8 @@ const CreEditCurso = (props) => {
             :''}
             </div>
             </div>
+            </div>
+            
             
         )
     

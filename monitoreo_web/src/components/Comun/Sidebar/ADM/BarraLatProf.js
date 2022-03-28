@@ -6,9 +6,9 @@ import { BarraDat } from "./BarraDat";
 import { closeSes } from "../../closeSes";
 import Validar from "../../validar";
 import './BarraLat.css'
-import { BarraDatADM } from "./BarraDatADM";
+import { BarraDatProf } from "./BarraDatProf";
 
-function BarraLat(props){
+function BarraLatProf(props){
 
     const [sideBar,setSidebar]=useState('false');
 
@@ -33,7 +33,7 @@ function BarraLat(props){
                     <AiIcons.AiOutlineClose />
                     </NavLink>
                 </li>
-                {BarraDat.map((cat,index)=>{
+                {BarraDatProf.map((cat,index)=>{
                     
                         return(cat.title==='Cerrar Sesión'? 
                         <li key={index} className={cat.cName}>
@@ -59,4 +59,4 @@ function BarraLat(props){
     )
 }
 
-export default BarraLat
+export default BarraLatProf

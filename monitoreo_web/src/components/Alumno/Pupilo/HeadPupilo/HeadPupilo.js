@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {ItemsCurso} from './ItemsCurso';
-import './HeadCurso.css'
+import {ItemsPupilo} from './ItemsPupilo';
+import './HeadPupilo.css'
 import { NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { db } from '../../../../firebase-config';
 
-class HeadCurso extends Component{
+class HeadPupilo extends Component{
     constructor() {
         super();
         this.state = {brand: ''};
@@ -13,10 +13,9 @@ class HeadCurso extends Component{
 
  getperm = () =>{
     const cookie = new Cookies()
-    this.state.brand=cookie.get('grup')
-    /*db.collection('G_Permiso').doc(cookie.get('idPerm')).get().then((snap)=>{
-         snap.data().Nombre_G_Perm
-      })*/
+    db.collection('G_Permiso').doc(cookie.get('idPerm')).get().then((snap)=>{
+        this.state.brand= snap.data().Nombre_G_Perm
+      })
 }
     
     render(){
@@ -27,10 +26,10 @@ class HeadCurso extends Component{
                     
                 </div>
                 <ul className='menu'>
-                    {ItemsCurso.map((cat, index) => {
+                    {ItemsPupilo.map((cat, index) => {
                         
                         return(<>
-                        {(this.state.brand===cat.block)? ''
+                        {(this.props.perm===cat.block)? ''
                                 :
                                 
                             <li key={index+cat.title} className={cat.cName}>
@@ -50,4 +49,4 @@ class HeadCurso extends Component{
     }
 }
 
-export default HeadCurso
+export default HeadPupilo
