@@ -20,7 +20,7 @@ const ExViewRutin = (props) =>{
         db.collection("Rutinas").onSnapshot((querySnapshot) => {
             const docs = [];
             querySnapshot.forEach((doc)=>{
-                if(doc.data().Autor===rescNPerm() || doc.data().Autor==='base')
+                if(doc.data().Autor===cookie.get('id_mayor') || doc.data().Autor==='base')
                 docs.push({...doc.data(), id:doc.id});
             });
             setlista(docs);

@@ -12,7 +12,7 @@ const CreEditRutin = (props) => {
         Descripcion:'',
         nActividades:0,
         Actividades:[],
-        Autor:'',
+        Autor:'base',
         Estado:'1',
         };
 
@@ -49,6 +49,7 @@ const CreEditRutin = (props) => {
         }
 
         const [nomlist,setnomList]=useState([]);
+        const [perm,setPerm]=useState('')
 
         const addNom = async (id) =>{
             var auxnom = [...nomlist];
@@ -91,6 +92,7 @@ const CreEditRutin = (props) => {
 
         useEffect(()=>{
             listarEjer();
+            rescNPerm()
         }, []);
 
 
@@ -120,17 +122,18 @@ const CreEditRutin = (props) => {
             setValues({...values, [name]: value})
         }
      
-        const rescNPerm = () =>{
-            db.collection('Profesores').where('UsuarioID','==',cookie.get('id_mayor')).get().then((snap)=>{
-                return(snap.data().Nombre_G_Perm) 
-              })
+        const rescNPerm = async () =>{
+            var a
+            var doc = await db.collection('G_Permiso').doc(cookie.get('idPerm')).get()
+            setPerm(doc.data().Nombre_G_Perm)
+            
         }
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
-            if(props.prof){
-                values.Autor=rescNPerm()
-            }else{
-                values.Autor='base'
+            
+            
+            if(perm=='Profesor_B'){
+                values.Autor=cookie.get('id_mayor')
             }
             
             e.preventDefault();

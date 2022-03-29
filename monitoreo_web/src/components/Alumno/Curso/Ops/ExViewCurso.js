@@ -12,22 +12,33 @@ function ExViewCurso (props){
     const cookie = new Cookies
 
     const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
-        const prof=[]
+        var prof
+        console.log(cookie.getAll())
         await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
-            //await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
-                querySnapshot.forEach(snapshot=>{
-            prof.push(...snapshot.data().Prof_list)})
-        }).catch((e) => console.log(e))
+            console.log(querySnapshot)
+            querySnapshot.forEach(snapshot=>{
+                prof=snapshot.data().Prof_list
+                //console.log(snapshot.data().Prof_list)
+                //prof.push(...snapshot.data().Prof_list)
         
         
-        prof.map((aux)=>{
-            db.collection('Curso').where("ProfesorID","==",aux).get().then((querySnapshot)=>{ 
+        
+    prof.map((aux)=>{
+        console.log(aux)
+            db.collection('Cursos').where("ProfesorID","==",aux).get().then((querySnapshot)=>{ 
+                console.log(querySnapshot)
                 querySnapshot.forEach((doc)=>{
-                        lCur.push({...doc.data(), id:doc.id})
-                        setrend(lCur.length)
+                    
+                    db.collection('Profesores').doc(aux).get().then(profe=>{
+                        db.collection('Usuarios').doc(profe.data().UsuarioID).get().then(user=>{
+                            lCur.push({...doc.data(), id:doc.id, nProf:user.data().Nombre+' '+user.data().Apellido})
+                            setrend(lCur.length)
+                        })
+                    })    
+
                         })
                 });               
-        });
+        });})}).catch((e) => console.log(e))
         
     }
 
@@ -181,7 +192,7 @@ function ExViewCurso (props){
                     id:'',
                     seciones:'sin asignar',
 					idCur:auxcode,
-					Fecha_Asignada:'Sin Asinacion'					
+					Fecha_Asignada:'Sin Asignacion'					
 				};
 					lsAS.push(valAsign)	
 				}else{querySnapshot.forEach((asg)=>{
@@ -228,7 +239,7 @@ function ExViewCurso (props){
                     </div>
                     <p>Seciones realizadas : {asg.seciones}</p>
                     <p>Alumnos :{Cur.AlumnoID.length}</p><p>Periodo :{Cur.Ano}</p>
-                    <p>Profesor: {Cur.Profesor===''?'':'Asignado'}</p>
+                    
                 </div>
             </div>:''))))
         
@@ -241,7 +252,7 @@ function ExViewCurso (props){
                     
                     </div>
                     <p>Alumnos :{exer.AlumnoID.length}</p><p>Periodo :{exer.Ano}</p>
-                    <p>Profesor: {exer.Profesor===''?'':'Asignado'}</p>
+                    <p>Profesor: {exer.nProf}</p>
                 </div>
             </div>))
 

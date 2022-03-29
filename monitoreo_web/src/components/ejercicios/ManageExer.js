@@ -9,11 +9,19 @@ const ManageExer = () =>{
 
     const eliminarEjercicio = async (linkObject) =>{   //Eliminacion de ejercicio de la base de datos
         
-        if (window.confirm('Esta seguro de que quiere '+(linkObject.exigencia? '' : 'des-')+ 'bloquear el ejercicio: "'+linkObject.Nombre_Ejercicio+'"')){
-            linkObject.exigencia=!linkObject.exigencia
+        var a
+        await db.collection('Rutinas').where('Actividades','array-contains',linkObject.id).get().then(e=>{
+           a = e.empty
+        })
+        if(a){
+        if (window.confirm('Esta seguro de que quiere '+(linkObject.Estado? '' : 'des-')+ 'bloquear el ejercicio: "'+linkObject.Nombre_Ejercicio+'"')){
+            linkObject.Estado=!linkObject.Estado
             await db.collection('Ejercicios').doc(linkObject.id).update(linkObject)
             
+        }}else{
+            window.alert('No se Puede Bloquear este Ejercicio, es parte de una Rutina')
         }
+
 
     };
     
@@ -50,6 +58,7 @@ const ManageExer = () =>{
             <Createexer {...{addOrEdit, idEx, lista}}/> 
             </div>
             <div className="col-md-8">
+                <br/>
             <h1>Ejercicios</h1>
             <div className='list-framed'>
             <div className="col-md-view-und">
@@ -64,9 +73,9 @@ const ManageExer = () =>{
                             <i className="material-icons" onClick={()=>setidEx(exer.id)}>create</i>
                         </div>
                         </div>
-                        <p>Instrucciones:{exer.Instrucciones}   |   Exigencia:{exer.Exigencia} </p>
-                        <p>Duracion/Repeticiones: {exer.Duracion_Repeticiones} {exer.Metricas=='Tiempo'?'Minutos' :'Veces'}</p>
-                        <p>  Estado: {(exer.exigencia)? "habilitado" : "deshabilitado"}</p>
+                        <p>Instrucciones: {exer.Instrucciones}   |   Exigencia:{exer.Exigencia} </p>
+                        <p>{exer.Metricas=='Duración'?'Duración' :'Repeticiones'}: {exer.Duracion_Repeticiones} {exer.Metricas=='Duración'?'Minutos' :'Veces'}</p>
+                        <p>  Estado: {(exer.Estado)? "habilitado" : "deshabilitado"}</p>
                     </div>
                 </div>
 

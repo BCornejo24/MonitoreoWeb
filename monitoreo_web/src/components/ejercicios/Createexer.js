@@ -86,10 +86,10 @@ const Createexer = (props) => {
 
                 <div className="form-group">
                     <div>Escoja la Metrica del ejercicio</div>
-                    <select id="exEjerc" className="form-control" name="Exigencia" onChange={lector}  value={values.Metricas}>
+                    <select id="exEjerc" className="form-control" name="Metricas" onChange={lector}  value={values.Metricas}>
                         <option value="Por Determinar">Por Determinar</option>
-                        <option value="Duracion">Duracion</option>
-                        <option value="Tiempo">Tiempo</option>
+                        <option value="Duración">Duración</option>
+                        <option value="Repeticiones">Repeticiones</option>
                     </select>
                 </div>
 
@@ -101,6 +101,7 @@ const Createexer = (props) => {
                         <option value="Media">Media</option>
                         <option value="Baja">Baja</option>
                     </select>
+                    
                 </div>
                 <button className="btn btn-primary btn-block">{
                     props.idEx === ''? 'Guardar' : 'Actualizar'

@@ -34,7 +34,8 @@ return(
         <div className='list-framed'>
         <div className="col-md-view-und-ex">
         {lista.map( exer => (
-            
+            <>
+            { exer.Estado?
             <div className="card mb-1" key={exer.id}>
                 <div className="card-body">
                     <div className="d-flex justify-content-between">
@@ -44,11 +45,11 @@ return(
                     </div>
                     </div>
                     <p>Instrucciones:{exer.Instrucciones}   |   Exigencia:{exer.Exigencia} </p>
-                    <p>Duracion/Repeticiones: {exer.Duracion_Repeticiones} minuto/veces</p>
-                    <p>Puntaje maximo: {exer.Puntaje_Maximo}   |   Estado: {(exer.exigencia)? "habilitado" : "deshabilitado"}</p>
+                        <p>{exer.Metricas=='Duración'?'Duración' :'Repeticiones'}: {exer.Duracion_Repeticiones} {exer.Metricas=='Duración'?'Minutos' :'Veces'}</p>
+                        <p>  Estado: {(exer.Estado)? "habilitado" : "deshabilitado"}</p>
                 </div>
-            </div>
-
+            </div>:''}
+            </>
         ))}
         </div>
         </div>

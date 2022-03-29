@@ -5,7 +5,7 @@ import { db } from "../../../../firebase-config";
 
 //props     cCurso(codigoCurso)     id_mayor(id traida en el inicio de sesion)
 const ExViewAlm = (props) =>{
-    const [listaUS]     = useState([]);
+    const [lista]     = useState([]);
     const [listaAL]     = useState([])
     const [ac,setac] = useState(0)
     
@@ -17,48 +17,106 @@ const ExViewAlm = (props) =>{
     }
 
     const cookie = new Cookies
-    const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
-        
-        console.log('ExViewAlm')
-         await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
-       //    await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
-        console.log(querySnapshot)
-            const prof = []    
-            querySnapshot.forEach(snapshot=>{
-                    prof.push(...snapshot.data().Prof_list)
 
-                    prof.map((element)=>{
-                        console.log(element)
-                        db.collection('Cursos').where("ProfesorID","==",element).where('Ano','==',fecha()).get().then((snapshot)=>{
-                            const caso = []
-                            console.log(snapshot)
-                            snapshot.forEach((doc)=>{
-                                caso.push(...doc.data().AlumnoID)
-                    
-                                caso.map((alfa)=>{
-                    
-                                        db.collection("Alumno").doc(alfa).get().then(snapshot=>{
-                    
-                                            const f = snapshot.data().UsuarioID;
-                                            listaAL.push({...snapshot.data(), id:snapshot.id})
-                    
-                                            db.collection('Usuarios').doc(f).get().then((snap)=>{
-                                                listaUS.push({...snap.data(), id:snap.id})
-                                                setac(listaUS.length)
-                                            })
+    
+    const listarDocumentoCrear = async () =>{ //Rescate de ID Alumnos en Firestore
+        
+        var prof
+        
+        await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
+            querySnapshot.forEach(snapshot=>{
+                prof=snapshot.data().Prof_list        
+        
+                prof.map((aux)=>{
+                        console.log(aux)
+                        db.collection('Cursos').where("ProfesorID","==",aux)
+                                               .where('Grado','==',getGrado())
+                                               .where('Ano','==',fechaact()).get().then((querySnapshot)=>{
+                                                console.log(querySnapshot)   
+                            querySnapshot.forEach((curso)=>{
+                                curso.data().AlumnoID.map(al=>{
+                                    db.collection('Alumno').doc(al).get().then(alumno=>{
+                                        db.collection('Usuarios').doc(alumno.data().UsuarioID).get().then(usuario=>{
+                                            
+                                            var saver={
+                                                id:usuario.id,
+                                                Nombre: usuario.data().Nombre+' '+usuario.data().Apellido,
+                                                Correo: usuario.data().Correo,
+                                                Actividad: usuario.data().fIngreso,
+                                            }
+                                            lista.push(saver)
+                                            setac(lista.length)
+
                                         })
+                                    })
                                 })
-                            })
-                        })
-                    })
-            })
-        }).catch((e) => console.log(e))
+                                
+                                    })
+                            });               
+                    });
+        })
+    })
     }
 
+    const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
+        
+        var prof
+        await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
+            querySnapshot.forEach(snapshot=>{
+                prof=snapshot.data().Prof_list        
+        
+                prof.map((aux)=>{
+                        db.collection('Cursos').where("ProfesorID","==",aux).get().then((querySnapshot)=>{
+                            querySnapshot.forEach((curso)=>{
+                                curso.data().AlumnoID.map(al=>{
+                                    db.collection('Alumno').doc(al).get().then(alumno=>{
+                                        db.collection('Usuarios').doc(alumno.data().UsuarioID).get().then(usuario=>{
+                                            
+                                            var saver={
+                                                id:usuario.id,
+                                                Nombre: usuario.data().Nombre+' '+usuario.data().Apellido,
+                                                Correo: usuario.data().Correo,
+                                                Actividad: usuario.data().fIngreso,
+                                            }
+                                            console.log(saver)
+                                            lista.push(saver)
+                                            setac(lista.length)
+
+                                        })
+                                    })
+                                })
+                                
+                                    })
+                            });               
+                    });
+        })
+    })
+    }
+
+    const mensaje = (id,nom) => {
+        props.enviarID(id,nom)
+    }
+
+
+    const getGrado = () =>{
+        if(props.creator=='II')return 'I'
+        if(props.creator=='III')return 'II'
+        if(props.creator=='IV')return 'III'
+    }
+
+    const fechaact = () =>{                 //Retorno de Fecha actual para la fecha de creacion
+        var today = new Date();
+        var yyyy = String(today.getFullYear())
+        
+        return yyyy-1;
+    }
   
 
     useEffect(()=>{
-        listarDocumento()
+        if(props.creator){
+            listarDocumentoCrear()
+        }else{
+            listarDocumento()}
     }, []);
  
 
@@ -70,18 +128,18 @@ const ExViewAlm = (props) =>{
                 <h1 className="r-dysp">Alumnos</h1>
                 <div className="col-md-8">
                     <div className='list-exv'>
-                    {listaUS.map((sf)=>(
+                    {lista.map((sf)=>(
                         
                             <div className="card mb-1" key={sf.id+ac}>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
-                                    <h4><b>{sf.Nombre+' '+sf.Apellido}</b></h4>
+                                    <h4><b>{sf.Nombre}</b></h4>
                                         <div>
-                                            { /*props.isnested? <i className="material-icons text-danger" onClick={()=>{mensaje(sf.id,sf.Nombre,sf.Apellido)}}>add</i> : ''*/}
+                                            { props.creator? <i className="material-icons text-danger" onClick={()=>{mensaje(sf.id,sf.Nombre)}}>add</i> : ''}
                                         </div>
                                     </div>
                                 <p>Correo :{sf.Correo}      </p>
-                                <p>Estado :{sf.Habilitado? 'Habilitado':'Bloqueado'}</p>
+                                <p>Estado :{sf.Actividad}</p>
                                 </div>
                             </div>))
                             }

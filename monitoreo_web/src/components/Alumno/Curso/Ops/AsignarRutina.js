@@ -23,15 +23,25 @@ const AsignarRutina = (props) =>{
     const [values,setvalues]= useState(valores_iniciales)
 
     const recepcionC = (a,nom,f) =>{
-        values.CursoID=a
+        if(deCur==''){
+            values.CursoID=a
         setdeCur(nom)
-        setf(f)
-        console.log(f)        
+        }else{
+                values.CursoID=''
+                setdeCur('')
+            } 
+        
+               
     }
 
     const recepcionR = (a,nom) =>{
+        if(deRut==''){
         values.RutinaID=a
-        setdeRut(nom)        
+        setdeRut(nom)}
+        else{
+            values.RutinaID=''
+            setdeRut('')
+        }        
     }
 
     const fechaact = () =>{                 //Retorno de Fecha actual para la fecha de creacion
@@ -56,19 +66,15 @@ const AsignarRutina = (props) =>{
         }
 
     const concretar=()=>{
-        if(values.CursoID=='' || values.RutinaID==''){
-            alert('Debe elegir una Rutina y un Curso para asignarlos')
-        }else{
-        if(f==fechaact() || compfech()<=6){
-            alert('No puede asignar una nueva rutina hasta dentro de 7 dias')
-        }else{
+        
             var timestamp = new Date().getTime();
             values.Fecha_de_Creacion= fechaact()
             values.timestamp=timestamp
             console.log(values)
             db.collection('Asignado').doc().set(values)
             setvalues({...valores_iniciales})
-    }}
+            setdeRut('')
+            setdeCur('')
     }
 return(<>
     <h4 className="subtitle-ground">Asignar Rutina</h4>
@@ -89,6 +95,7 @@ return(<>
                 </div>
                 <div className = 'bloqueCuerpo-B'>
                 <div className = 'leftBloq'><ExViewRutin enviarID={recepcionR}/></div>
+                
                 <div className = 'rightBloq'><ExViewCurso Prof={true} isnestprof={true} enviarID={recepcionC} /></div>
                     
                 

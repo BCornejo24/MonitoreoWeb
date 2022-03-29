@@ -21,11 +21,7 @@ import MenuRutina from './components/Rutina/MenuRutina';
 import MenuManagerColegio from './components/ManagerColegio/MenuManagerColegio';
 import MenuUsuario from './components/Usuario/MenuUsuario';
 import MenuPermisos from './components/Permisos/MenuPermisos';
-import Validar from './components/Comun/validar';
 import PageNotFound from './components/Comun/PageNotFound';
-import BarraLatProf from './components/Comun/Sidebar/ADM/BarraLatProf';
-import BarraLatADM from './components/Comun/Sidebar/ADM/BarraLatADM';
-import BarraLatManC from './components/Comun/Sidebar/ADM/BarraLatManC';
 
 const App = (props) => {
 
@@ -58,10 +54,6 @@ const App = (props) => {
             return(<MCDashboard/>)
           }
         }
-    /*const dRuts =(
-      
-    )*/
-
 
 
   return (
@@ -71,9 +63,7 @@ const App = (props) => {
         <div>
           <div className="title-ground">
             <div className="bloqueNavegacion">
-            {nom=='Profesor_B'?<BarraLatProf/>:''}
-            {nom=='Admin_B'?<BarraLatADM/>:''}
-            {nom=='ManagerColegio_B'?<BarraLatManC/>:''}
+            <BarraLat/>
                     <Routes>
                       <Route exact path='/Home'                element={rutes()}/>
                       <Route path='/MenuAlumno/*'                element={<MenuAlumno/>} />

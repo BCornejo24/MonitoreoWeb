@@ -90,10 +90,10 @@ const CreEditCurso = (props) => {
             setcAl(true)
         }
 
-        const recepcion = (id,a,b) =>{
+        const recepcion = (id,a) =>{
             
             //console.log("recibi ="+ id +" "+a+" "+b)
-            var denom=a+" "+b
+            var denom=a
             
             var aux=[...lus]
 
@@ -230,9 +230,7 @@ const CreEditCurso = (props) => {
                     <button onClick={(e)=>nAlumno(e)}>Nuevo Alumno</button>
                 }</div>
             <div>
-                {curG?
-            <ExViewAlm isnested={true} enviarID={recepcion} mid={cookie.get('id_mayor')} Gr={values.Grado} />
-            :''}
+                
             </div>
             </div>
             </div>

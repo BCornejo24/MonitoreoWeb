@@ -46,7 +46,7 @@ const CreEditProfesor = (props) => {
                 Habilitado:'1',
                 fIngreso: linkObject.fIngreso
                 }
-            
+                
             props.addOrEdit(aux)
             
         }

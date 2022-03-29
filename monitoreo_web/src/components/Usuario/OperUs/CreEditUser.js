@@ -83,16 +83,13 @@ const [base,setbase] = useState('Usuario')
         const actualizar = (e) =>{        //Seteo de valores default en los campos
             e.preventDefault();
             if(igual()){
-              //  setdone(true)
                 values.fIngreso=fechaact()
-                //console.log(values)
                 
-                   
+                       
                 props.addOrEdit(values)
-
-               // setauxpa    ({...passAux});
-               // setValues   ({...valores_iniciales});
-        }}
+                setValues(valores_iniciales)
+                setauxpa(passAux)
+            }}
             
 
         useEffect(()=> {            //Validacion si se a rescatado un id
