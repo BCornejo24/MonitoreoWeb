@@ -21,9 +21,9 @@ function ExViewCurso (props){
     const [value,setvalue]=useState(valor_inicial)
     const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
         var prof
-        console.log(cookie.getAll())
+        //console.log(cookie.getAll())
         await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
-            console.log(querySnapshot)
+            //console.log(querySnapshot)
             querySnapshot.forEach(snapshot=>{
                 prof=snapshot.data().Prof_list
                 //console.log(snapshot.data().Prof_list)
@@ -32,9 +32,9 @@ function ExViewCurso (props){
         
         
     prof.map((aux)=>{
-        console.log(aux)
+        //console.log(aux)
             db.collection('Cursos').where("ProfesorID","==",aux).get().then((querySnapshot)=>{ 
-                console.log(querySnapshot)
+                //console.log(querySnapshot)
                 querySnapshot.forEach((doc)=>{
                     
                     db.collection('Profesores').doc(aux).get().then(profe=>{
@@ -57,7 +57,7 @@ function ExViewCurso (props){
     await db.collection('Profesores').where('UsuarioID','==',cookie.get('id_mayor')).get().then(querySnapshot=>{
         //await db.collection('ManagerColegio').where('UsuarioID','==','usId').get().then((querySnapshot)=>{
             querySnapshot.forEach(snapshot=>{
-                console.log(snapshot.id)
+               // console.log(snapshot.id)
                 cod=snapshot.id
             })
 
@@ -65,7 +65,7 @@ function ExViewCurso (props){
         
     await db.collection('Cursos').where("ProfesorID","==",cod).get().then((querySnapshot)=>{ 
         querySnapshot.forEach((doc)=>{
-            console.log(doc.data())
+            //console.log(doc.data())
                 value.lCurso.push({...doc.data(), id:doc.id})
                 setrend(value.lCurso.length)
             })
@@ -76,7 +76,7 @@ function ExViewCurso (props){
 				bringAS(curs.id)		
 		})
     //lsAS.map(asg=>recQsec(asg))
-    console.log(lsAS)
+    //console.log(lsAS)
     }
 
     const bringAS = async (id) =>{

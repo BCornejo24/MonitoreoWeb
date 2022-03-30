@@ -4,7 +4,7 @@ import ViewGrupo from "./ViewGrupo";
 const ExViewGrupos = () => {
     
     useEffect(()=>{
-        console.log("NuevoGrupo")
+        //console.log("NuevoGrupo")
     })
 
     return (<>

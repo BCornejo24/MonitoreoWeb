@@ -87,7 +87,7 @@ const CreEditCurso = (props) => {
                             console.log(querySnapshot)
                         if(!querySnapshot.empty){ //falso si encuentra algun documento
                             alert('El curso que esta intentando crear: '+values.Grado+' °'+values.Letra+" ya existe.")
-                            console.log(querySnapshot.empty)
+                            //console.log(querySnapshot.empty)
                             return false
                         }})
                             return true;
@@ -181,14 +181,14 @@ const CreEditCurso = (props) => {
                 query = query.where('Grado','==',values.Grado)
                 query = query.where('Letra','==',values.Letra)
                 query.get().then(querySnapshot=>{
-                    console.log(querySnapshot)
+                    //console.log(querySnapshot)
                         if(!querySnapshot.empty){ //falso si encuentra algun documento
                             alert('El curso que esta intentando crear:'+values.Grado+'°'+values.Letra+" ya existe.")
                             return false
                         }else{
                             alert('El curso que esta intentando crear:'+values.Grado+'°'+values.Letra+" no existe.")}})
                             return true
-                console.log(values.ProfesorID)
+                //console.log(values.ProfesorID)
             }
 
         return (

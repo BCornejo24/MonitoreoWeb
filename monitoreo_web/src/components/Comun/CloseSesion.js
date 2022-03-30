@@ -13,7 +13,7 @@ const CloseSesion = () => {
             //cookies.remove('id_mayor')
             //cookies.remove('idPerm')
         }
-        console.log(cookies.getAll())
+        //console.log(cookies.getAll())
 
         return(cerrar());
         //window.location.reload()

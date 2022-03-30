@@ -81,7 +81,7 @@ console.log(asg[0])
 //rescatarAlm(doc.data().AlumnoID,auxa)
 
 aux.map(e=>{
-    console.log(e)
+    //console.log(e)
     db.collection('Alumno').doc(e).get().then(alm=>{
         
         db.collection('Usuarios').doc(alm.data().UsuarioID).get().then(us=>{
@@ -147,7 +147,7 @@ auxact.map(e=>{
 const rescatarAlm=async(alfa,id)=>{ //llenar Alm con Objetos {NomAp(obtenido del Alumno),TEjercicios[](obtenido de ultima SesionEjercicio)}
 
     alfa.map(e=>{
-        console.log(e)
+        //console.log(e)
         db.collection('Alumno').doc(e).get().then(alm=>{
             
             db.collection('Usuarios').doc(alm.data().UsuarioID).get().then(us=>{
@@ -184,7 +184,7 @@ const rescatarAlm=async(alfa,id)=>{ //llenar Alm con Objetos {NomAp(obtenido del
             
         })
     })
-    console.log(lAlm)
+    //console.log(lAlm)
 }
 
 return(<>

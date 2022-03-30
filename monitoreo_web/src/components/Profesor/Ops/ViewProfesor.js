@@ -22,7 +22,7 @@ const ViewProfesor = () =>{
     const listar = () =>{ //Rescate on Demand de los Rutinas en Firestore
 
         db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
-            console.log(querySnapshot)
+            //console.log(querySnapshot)
             querySnapshot.forEach(man=>{
                 var profs=man.data().Prof_list
 

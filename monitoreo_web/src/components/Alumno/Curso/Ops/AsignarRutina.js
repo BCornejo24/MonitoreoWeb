@@ -66,7 +66,7 @@ const AsignarRutina = (props) =>{
 
         var diff = fechaFin - fechaInicio;
 
-        console.log(diff/(1000*60*60*24))
+        //console.log(diff/(1000*60*60*24))
         return(diff/(1000*60*60*24) );
         }
 
@@ -76,7 +76,7 @@ const AsignarRutina = (props) =>{
             values.Fecha_de_Creacion= fechaact()
             values.timestamp=timestamp
             setdat(timestamp)
-            console.log(values)
+            //console.log(values)
             await db.collection('Asignado').doc().set(values)
             setvalues({...valores_iniciales})
             setdeRut('')

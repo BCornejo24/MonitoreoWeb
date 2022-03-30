@@ -39,8 +39,8 @@ const [aux,setaux]=useState()
 const inicio = async(e) =>{
     e.preventDefault();
 
-        console.log(Us.lock +" is the lock")
-        console.log(Us.key + " is the key")
+        //console.log(Us.lock +" is the lock")
+        //console.log(Us.key + " is the key")
         await db.collection('Usuarios').where('Correo','==',Us.lock).get().then((querySnapshot)=>{
             if (!querySnapshot.empty) {
                     querySnapshot.forEach(doc=>{
@@ -51,10 +51,10 @@ const inicio = async(e) =>{
                 if(Us.key === doc.data().Pass){
                         Us.id_mayor = doc.id
                         Us.idPerm = doc.data().G_Permisos
-                        console.log("Credenciales validas");
+                        //console.log("Credenciales validas");
                         setEMess({ name: "cred", message: "" })
                         setISubm(true)
-                        console.log(Us.id_mayor+" id en login")
+                        //console.log(Us.id_mayor+" id en login")
                         
                         avanzar()
                 }else{    

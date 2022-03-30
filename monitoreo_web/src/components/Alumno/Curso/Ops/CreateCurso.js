@@ -11,24 +11,24 @@ const CreateCurso = () =>{
     const addOrEdit = async (linkCur,/*arrus,*/arral) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
         
         setAuxC(linkCur)
-        console.log(auxC)
+       //console.log(auxC)
         linkCur.AlumnoID.pop()
-        console.log(linkCur)
+        //console.log(linkCur)
 
-        console.log(arral)
+        //console.log(arral)
         for(const us of arral){
             var pup = await crearAlumno(us)
             linkCur.AlumnoID.push(pup)
-            console.log(linkCur.AlumnoID)
+            //console.log(linkCur.AlumnoID)
         }
-        console.log('Afuera:')
-        console.log(linkCur.AlumnoID)
+        //console.log('Afuera:')
+       //console.log(linkCur.AlumnoID)
         await db.collection('Cursos').add(linkCur)
         }
 
     
                  const crearAlumno = async (obj) =>{
-                     console.log(obj)
+                     //console.log(obj)
                     var aux
                     await db.collection('Usuarios').add(obj).then(docRef=>{
                         aux = docRef.id

@@ -16,7 +16,7 @@ const volver=()=>{
 const cambio=(a,b,c)=>{
     setCode(a)
     setfecha(c)
-    console.log(a)
+    //console.log(a)
     setDetail(true)
 }
 

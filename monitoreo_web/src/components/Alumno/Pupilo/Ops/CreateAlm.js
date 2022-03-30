@@ -17,7 +17,7 @@ const CreateAlm = (props) =>{
             magma=docRef.id
         })
         linkAlm.UsuarioID = magma
-        console.log("Datos Usuario guardados")
+        //console.log("Datos Usuario guardados")
 
         var copy = [];
         await db.collection('Alumno').add(linkAlm).then(docRef=>{

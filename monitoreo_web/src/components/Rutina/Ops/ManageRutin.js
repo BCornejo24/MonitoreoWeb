@@ -20,10 +20,10 @@ const ManageRutin = () =>{
     const addOrEdit = async (linkObject) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            if (idEx === ''){
             await db.collection('Rutinas').doc().set(linkObject)
-            console.log("Rutina guardada")
+            //console.log("Rutina guardada")
            }else{
             await db.collection('Rutinas').doc(idEx).update(linkObject)
-            console.log("Rutina Actualizada")
+            //console.log("Rutina Actualizada")
            }
            setidEx('');
     }

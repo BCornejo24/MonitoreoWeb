@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 function MenuUser(){
 
   useEffect(()=>{
-    console.log("MenuUser")
+    //console.log("MenuUser")
   },[])
 
 

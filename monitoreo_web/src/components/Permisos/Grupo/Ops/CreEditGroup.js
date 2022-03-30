@@ -108,12 +108,12 @@ const CreEditGroup = (props) => {
     
             const actualizar = (e) =>{
                 e.preventDefault();    
-                console.log(values.Permisos.length)
+                //console.log(values.Permisos.length)
                 if(values.Permisos.length>=1){
                 props.addOrEdit(values);
                 setValues   ({...valores_iniciales})
                 setnomList([])
-                console.log(nomlist);
+                //console.log(nomlist);
             }else{
                 alert('Debe agregar al menos un permiso a este grupo')
             }

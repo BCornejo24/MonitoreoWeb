@@ -18,10 +18,10 @@ const ViewGrupo = () =>{
     const addOrEdit = async (linkObject) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            if (idEx === ''){
             await db.collection('G_Permiso').doc().set(linkObject)
-            console.log("Rutina guardada")
+            //console.log("Rutina guardada")
            }else{
             await db.collection('G_Permiso').doc(idEx).update(linkObject)
-            console.log("Rutina Actualizada")
+            //console.log("Rutina Actualizada")
            }
            setidEx('');
     }
@@ -30,7 +30,7 @@ const ViewGrupo = () =>{
         db.collection("G_Permiso").onSnapshot((querySnapshot) => {
             const docs = [];
             querySnapshot.forEach((doc)=>{
-                console.log(doc.data())
+                //console.log(doc.data())
                 docs.push({...doc.data(), id:doc.id});
             });
             setlista(docs);

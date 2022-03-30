@@ -11,7 +11,7 @@ const CreateUser = () =>{
     const addOrEdit = async (linkuser) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            
         await db.collection('Usuarios').doc().set(linkuser)
-        console.log("Datos Usuario guardados")
+        //console.log("Datos Usuario guardados")
     }
 
     return(

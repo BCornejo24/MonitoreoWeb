@@ -4,7 +4,7 @@ import ManejarPermisos from './Ops/ManejarPermiso';
 function MenuSimple() {
 
 useEffect(()=>{
-    console.log("permisos")
+    //console.log("permisos")
 })
 
     return(

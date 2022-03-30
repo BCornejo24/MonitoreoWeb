@@ -28,11 +28,11 @@ const ExViewAlm = (props) =>{
                 prof=snapshot.data().Prof_list        
         
                 prof.map((aux)=>{
-                        console.log(aux)
+                        //console.log(aux)
                         db.collection('Cursos').where("ProfesorID","==",aux)
                                                .where('Grado','==',getGrado())
                                                .where('Ano','==',fechaact()).get().then((querySnapshot)=>{
-                                                console.log(querySnapshot)   
+                                                //console.log(querySnapshot)   
                             querySnapshot.forEach((curso)=>{
                                 curso.data().AlumnoID.map(al=>{
                                     db.collection('Alumno').doc(al).get().then(alumno=>{
@@ -78,7 +78,7 @@ const ExViewAlm = (props) =>{
                                                 Correo: usuario.data().Correo,
                                                 Actividad: usuario.data().fIngreso,
                                             }
-                                            console.log(saver)
+                                            //console.log(saver)
                                             lista.push(saver)
                                             setac(lista.length)
 

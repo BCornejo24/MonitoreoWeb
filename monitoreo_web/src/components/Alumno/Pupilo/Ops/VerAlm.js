@@ -10,7 +10,7 @@ function VerAlm (){
     const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
         
         var prof
-        console.log(cookie.getAll())
+        //console.log(cookie.getAll())
         await db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then((querySnapshot)=>{
             querySnapshot.forEach(snapshot=>{
                 prof=snapshot.data().Prof_list        

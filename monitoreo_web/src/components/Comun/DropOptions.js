@@ -39,7 +39,7 @@ const DropOptions = (props) =>{
     const listarOpcPerm = () =>{
         db.collection('G_Permiso').onSnapshot(querySnapshot=>{
             var docs = []
-            console.log(querySnapshot.size)
+            //console.log(querySnapshot.size)
             querySnapshot.forEach(doc=>{
                // console.log(doc.data())
                 var termino = doc.data().Nombre_G_Perm

@@ -52,7 +52,7 @@ const CreEditManC = (props) => {
                 Habilitado:'1',
                 fIngreso: linkObject.fIngreso
                 }
-            console.log(aux.G_Permisos)
+            //console.log(aux.G_Permisos)
             props.addOrEdit(aux,valuest)
             setValuest   ({...valores_iniciales_tipo});
         }

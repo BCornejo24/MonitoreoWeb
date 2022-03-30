@@ -13,7 +13,7 @@ const UpUser = (props) =>{
     const addOrEdit = async (linkuser) => {   //Escritura en la base de firestore. Se agrega un objeto rutina a la base de datos
            
         await db.collection('Usuarios').doc(cookies.get('id_mayor')).update(linkuser)
-        console.log("Datos Usuario guardados")
+        //console.log("Datos Usuario guardados")
         props.volver()
     }
 

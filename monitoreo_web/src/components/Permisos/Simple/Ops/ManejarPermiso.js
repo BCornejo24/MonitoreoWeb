@@ -25,11 +25,11 @@ const ManejarPermisos = () =>{
            
             if (idEx === ''){
             await db.collection('Permiso').doc().set(linkObject)
-            console.log("ejercicio guardado")
+            //console.log("ejercicio guardado")
            }else{
             if(existencia(linkObject.id)){
             await db.collection('Permiso').doc(idEx).update(linkObject)
-            console.log("Ejercicio Actualizado")
+            //console.log("Ejercicio Actualizado")
             }else{
                 alert('El permiso asociado a'+linkObject.DescripcionPermiso+' existe en algun grupo, debe quitarlo del grupo para poder editarlo')
             }

@@ -4,7 +4,7 @@ import CrearGrupo from './CrearGrupo';
 const NuevoGrupo = () => {
     
     useEffect(()=>{
-        console.log("NuevoGrupo")
+        //console.log("NuevoGrupo")
     })
 
     return (<>

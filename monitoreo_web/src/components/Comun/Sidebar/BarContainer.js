@@ -35,7 +35,7 @@ const BarContainer = (props) =>{
   
     useEffect(()=>{
       asfalto()
-      console.log(props.nom)
+      //console.log(props.nom)
       rutes()
     },[props.nom])
   
