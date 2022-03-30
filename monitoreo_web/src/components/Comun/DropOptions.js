@@ -39,19 +39,18 @@ const DropOptions = (props) =>{
     const listarOpcPerm = () =>{
         db.collection('G_Permiso').onSnapshot(querySnapshot=>{
             var docs = []
+            console.log(querySnapshot.size)
             querySnapshot.forEach(doc=>{
                // console.log(doc.data())
                 var termino = doc.data().Nombre_G_Perm
                 termino = termino.slice(-2)
                 if(termino!=='_B'){
-                    var opcs = Bopcion
-                    opcs.display =doc.data().Nombre_G_Perm
-                    opcs.value = doc.id
-                    docs.push(opcs)
-                    setrend(docs.length)
+                    var opcs ={   display:doc.data().Nombre_G_Perm,   valu:doc.id}
+                    list.push(opcs)
+                    setrend(list.length)
                 }
             })
-        setList(docs)
+        //setList(docs)
         })
     }    
     
@@ -68,7 +67,7 @@ const DropOptions = (props) =>{
 
     return(<>
         {list.map((opc)=>(
-            <option key={opc.value+''+rend} value={opc.value}>{opc.display}</option>
+            <option key={opc.value} value={opc.value}>{opc.display}</option>
         ))}
     </>)
 

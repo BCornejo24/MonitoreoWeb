@@ -18,13 +18,13 @@ const CreEditGroup = (props) => {
 
 
         const setIdAdc = (id,nam)=>{
-            if(idP.includes(id)){
+            if(values.Permisos.includes(id)){
                 const index = idP.indexOf(id);
                 if (index > -1) {
-                    idP.splice(index, 1);
+                    values.Permisos.splice(index, 1);
                 }
             }else{
-                idP.push(id);
+                values.Permisos.push(id);
             }
             
             addNom(nam);    
@@ -108,11 +108,11 @@ const CreEditGroup = (props) => {
     
             const actualizar = (e) =>{
                 e.preventDefault();    
-                if(values.Permisos.length>1){
-                values.Permisos=idP
+                console.log(values.Permisos.length)
+                if(values.Permisos.length>=1){
                 props.addOrEdit(values);
                 setValues   ({...valores_iniciales})
-                freenom();
+                setnomList([])
                 console.log(nomlist);
             }else{
                 alert('Debe agregar al menos un permiso a este grupo')

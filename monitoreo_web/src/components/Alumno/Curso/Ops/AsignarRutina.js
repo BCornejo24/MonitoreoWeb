@@ -6,7 +6,7 @@ import ExViewCurso from "./ExViewCurso";
 const AsignarRutina = (props) =>{
 
     const [menForm,setmenForm]=useState([])
-    const [idCur,setidCur]=useState()
+    const [dat,setdat]=useState()
     const [idRut,setidRut]=useState()
     const [deCur,setdeCur]=useState('')
     const [deRut,setdeRut] = useState('')
@@ -70,18 +70,20 @@ const AsignarRutina = (props) =>{
         return(diff/(1000*60*60*24) );
         }
 
-    const concretar=()=>{
+    const concretar=async()=>{
         if(compfech()>=7 || f=='Sin Asignacion'){
             var timestamp = new Date().getTime();
             values.Fecha_de_Creacion= fechaact()
             values.timestamp=timestamp
+            setdat(timestamp)
             console.log(values)
-            db.collection('Asignado').doc().set(values)
+            await db.collection('Asignado').doc().set(values)
             setvalues({...valores_iniciales})
             setdeRut('')
             setdeCur('')
-            window.location.reload()
             alert('Asignacion Completada')
+            
+            window.location.reload()
             }else{
         alert('Puede asignar una Rutina a este Curso nuevamente, despues de 7 dias')
     }
@@ -106,7 +108,7 @@ return(<>
                 <div className = 'bloqueCuerpo-B'>
                 <div className = 'leftBloq'><ExViewRutin enviarID={recepcionR}/></div>
                 
-                <div className = 'rightBloq'><ExViewCurso Prof={true} menForm={menForm} isnestprof={true} enviarID={recepcionC} /></div>
+                <div className = 'rightBloq'><ExViewCurso Prof={true} data={dat} isnestprof={true} enviarID={recepcionC} /></div>
                     
                 
                 </div>

@@ -56,7 +56,7 @@ const CreEditCurso = (props) => {
             if(liUsN.length>=0){
                 //ar t = await valCur()
                 //console.log(t)
-                if(await valCur()){
+                if(valCur()){
             values.Ano=fechaact();
             //values.AlumnoID.push(...lus)
             props.addOrEdit(values,liUsN/*,liAlN*/);
@@ -65,7 +65,8 @@ const CreEditCurso = (props) => {
             setIsDisabled(false)
             setLAN([])
             setLUN([])
-            setLUS([])}}else{
+            setLUS([])}
+            }else{
                 alert('Debe de agregar al menos un Alumno al curso')
             }
             

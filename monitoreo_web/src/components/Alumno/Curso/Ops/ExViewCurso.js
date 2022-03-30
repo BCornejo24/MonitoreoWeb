@@ -1,16 +1,24 @@
+import { render } from "@testing-library/react"
 import React, { useEffect, useState } from "react"
+import { components } from "react-select"
 import Cookies from "universal-cookie"
 import { db } from "../../../../firebase-config"
 
 function ExViewCurso (props){
     const [lCur,setlCur]=useState([])
     const [lsAS,setlsAS]=useState([])
-    const [AuxDoc,setAuxDoc]=useState()
+    
+    const [AuxDoc,setAuxDoc]=useState(0)
     const [rend,setrend]=useState(0)
-    const [sec,setsec]=useState(0)
+    const [sec,setsec]=useState(props.data)
 
     const cookie = new Cookies
 
+    const valor_inicial={
+        lCurso:[],
+        lAsign:[]
+    }
+    const [value,setvalue]=useState(valor_inicial)
     const listarDocumento = async () =>{ //Rescate de ID Alumnos en Firestore
         var prof
         console.log(cookie.getAll())
@@ -58,20 +66,18 @@ function ExViewCurso (props){
     await db.collection('Cursos').where("ProfesorID","==",cod).get().then((querySnapshot)=>{ 
         querySnapshot.forEach((doc)=>{
             console.log(doc.data())
-                lCur.push({...doc.data(), id:doc.id})
-                setrend(lCur.length)
+                value.lCurso.push({...doc.data(), id:doc.id})
+                setrend(value.lCurso.length)
             })
         }); 
     
                        
-    lCur.map((curs)=>{
+        value.lCurso.map((curs)=>{
 				bringAS(curs.id)		
 		})
     //lsAS.map(asg=>recQsec(asg))
     console.log(lsAS)
     }
-
-    
 
     const bringAS = async (id) =>{
         var auxcode = id
@@ -85,8 +91,8 @@ function ExViewCurso (props){
 					idCur:auxcode,
 					Fecha_Asignada:'Sin Asignacion'					
 				};
-					lsAS.push(valAsign)
-                    setrend(lsAS.length+lCur.length)	
+                value.lAsign.push(valAsign)
+                    setrend(value.lAsign.length+value.lCurso.length)	
 				}else{querySnapshot.forEach((asg)=>{
                     
                     db.collection('SecionEjercicio').where('AsignadoID','==',asg.id).get().then(
@@ -98,8 +104,8 @@ function ExViewCurso (props){
                             idCur:auxcode,
                             Fecha_Asignada:asg.data().Fecha_de_Creacion
                         };
-                            lsAS.push(valAsign)
-            setrend(lsAS.length+lCur.length)}
+                            value.lAsign.push(valAsign)
+            setrend(value.lAsign.length+value.lCurso.length)}
                     )
                    
 				
@@ -118,10 +124,10 @@ function ExViewCurso (props){
 
     const listado=
     (<>{props.Prof?
-        lCur.map( Cur => (
-            lsAS.map( asg=>( 
+        value.lCurso.map( Cur => (
+            value.lAsign.map( asg=>( 
                 (asg.idCur==Cur.id)?
-            <div className="card mb-1" key={Cur.id}>
+            <div className="card mb-1" key={Cur.id+AuxDoc}>
                 <div className="card-body">
                     <div className="d-flex justify-content-between">
                     <h4><b>{Cur.Grado+'° '+Cur.Letra}</b></h4>
@@ -138,7 +144,7 @@ function ExViewCurso (props){
             </div>:''))))
         
         :
-        lCur.map( exer => (
+        value.lCurso.map( exer => (
             <div className="card mb-1" key={exer.id+rend}>
                 <div className="card-body">
                     <div className="d-flex justify-content-between">
@@ -156,7 +162,8 @@ function ExViewCurso (props){
     useEffect(()=>{
         if(props.Prof){
             listarDocumentoProf()
-            setrend(lsAS.length+lCur.length+1)
+            setrend(value.lAsign.length+value.lCurso.length+1)
+            setAuxDoc(1)
         }else{
             listarDocumento()
     }

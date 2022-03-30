@@ -30,6 +30,7 @@ const ViewGrupo = () =>{
         db.collection("G_Permiso").onSnapshot((querySnapshot) => {
             const docs = [];
             querySnapshot.forEach((doc)=>{
+                console.log(doc.data())
                 docs.push({...doc.data(), id:doc.id});
             });
             setlista(docs);
