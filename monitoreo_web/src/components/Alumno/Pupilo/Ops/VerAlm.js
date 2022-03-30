@@ -26,6 +26,7 @@ function VerAlm (){
                                                 Nombre: usuario.data().Nombre+' '+usuario.data().Apellido,
                                                 Correo: usuario.data().Correo,
                                                 Actividad: usuario.data().fIngreso,
+                                                Curso:curso.data().Grado+'° '+curso.data().Letra
                                             }
                                             lista.push(saver)
                                             setac(lista.length)
@@ -57,7 +58,11 @@ function VerAlm (){
                             <div className="card mb-1" key={sf.Nombre+sf.Correo}>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
+                                    
+                                    <div className="divright">
                                     <h4><b>{sf.Nombre}</b></h4>
+                                    </div>
+                                    <div className="divleft">Curso: {sf.Curso}</div>
                                     </div>
                                 <p>Correo :{sf.Correo}      </p>
                                 <p>Actividad :{sf.Actividad}      </p>

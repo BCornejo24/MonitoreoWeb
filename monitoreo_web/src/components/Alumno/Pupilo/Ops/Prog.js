@@ -142,7 +142,6 @@ auxact.map(e=>{
           setrend(rend+1)
     })
 })
-console.log(ejer)
 }
 
 const rescatarAlm=async(alfa,id)=>{ //llenar Alm con Objetos {NomAp(obtenido del Alumno),TEjercicios[](obtenido de ultima SesionEjercicio)}
@@ -195,7 +194,7 @@ return(<>
                     <div className="d-flex justify-content-between">
                     <h4><b>{Rutina.Nombre_Rutina}</b></h4>
                     <div>
-                    <p>Fecha de Rutina asignada "{asg.Fecha_Asignada}"</p>
+                    <p>Fecha de Rutina asignada "{props.fechaAsg}"</p>
                     <p>Ejercicios:</p>
                     {ejer.map(ex=>
                         <p key={ex.NomAp}>{ex.Nombre}| Instrucciones: {ex.Instrucciones}| Metrica: {ex.Metrica}|  Duracion/Repeticiones: {ex.Dur_Rep}    </p>

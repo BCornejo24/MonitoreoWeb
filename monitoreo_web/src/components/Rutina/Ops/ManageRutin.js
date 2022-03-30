@@ -63,8 +63,8 @@ const ManageRutin = () =>{
                             <i className="material-icons" onClick={()=>setidEx(exer.id)}>create</i>
                         </div>
                         </div>
-                        <p>Numero de Actividades :{exer.nActividades}</p>
-                        <p>Descripcion: {exer.Descripcion}</p>
+                        <div>Numero de Actividades :{exer.nActividades}</div>
+                        <div>Descripcion: {exer.Descripcion}</div>    <div>Estado:{exer.Estado? 'Habilitado':'Deshabilitado'}</div>
                     </div>
                 </div>
 

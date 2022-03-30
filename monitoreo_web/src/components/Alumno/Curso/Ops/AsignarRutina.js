@@ -5,7 +5,7 @@ import ExViewCurso from "./ExViewCurso";
 
 const AsignarRutina = (props) =>{
 
-    const [menForm,setmenForm]=useState(false)
+    const [menForm,setmenForm]=useState([])
     const [idCur,setidCur]=useState()
     const [idRut,setidRut]=useState()
     const [deCur,setdeCur]=useState('')
@@ -23,6 +23,7 @@ const AsignarRutina = (props) =>{
     const [values,setvalues]= useState(valores_iniciales)
 
     const recepcionC = (a,nom,f) =>{
+        setf(f)
         if(deCur==''){
             values.CursoID=a
         setdeCur(nom)
@@ -42,6 +43,10 @@ const AsignarRutina = (props) =>{
             values.RutinaID=''
             setdeRut('')
         }        
+    }
+
+    const formchange = () =>{
+        setmenForm(false)
     }
 
     const fechaact = () =>{                 //Retorno de Fecha actual para la fecha de creacion
@@ -66,7 +71,7 @@ const AsignarRutina = (props) =>{
         }
 
     const concretar=()=>{
-        
+        if(compfech()>=7 || f=='Sin Asignacion'){
             var timestamp = new Date().getTime();
             values.Fecha_de_Creacion= fechaact()
             values.timestamp=timestamp
@@ -75,6 +80,11 @@ const AsignarRutina = (props) =>{
             setvalues({...valores_iniciales})
             setdeRut('')
             setdeCur('')
+            window.location.reload()
+            alert('Asignacion Completada')
+            }else{
+        alert('Puede asignar una Rutina a este Curso nuevamente, despues de 7 dias')
+    }
     }
 return(<>
     <h4 className="subtitle-ground">Asignar Rutina</h4>
@@ -96,7 +106,7 @@ return(<>
                 <div className = 'bloqueCuerpo-B'>
                 <div className = 'leftBloq'><ExViewRutin enviarID={recepcionR}/></div>
                 
-                <div className = 'rightBloq'><ExViewCurso Prof={true} isnestprof={true} enviarID={recepcionC} /></div>
+                <div className = 'rightBloq'><ExViewCurso Prof={true} menForm={menForm} isnestprof={true} enviarID={recepcionC} /></div>
                     
                 
                 </div>

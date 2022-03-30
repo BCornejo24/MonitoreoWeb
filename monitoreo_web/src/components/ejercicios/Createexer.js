@@ -34,11 +34,11 @@ const Createexer = (props) => {
 
 
 
-        const actualizar = (e) =>{          //Seteo de valores default en los campos
+        const actualizar = (e) =>{  
+            e.preventDefault();        //Seteo de valores default en los campos
             if(values.Exigencia=='Por Determinar' ||  values.Metricas=='Por Determinar'){
                 alert('Debe de elegir, de la lista disponible para la exigencia o el tipo de ejercicio')
             }else{
-            e.preventDefault();
             props.addOrEdit(values);
             setValues   ({...valores_iniciales})         
         }

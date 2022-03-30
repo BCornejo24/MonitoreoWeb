@@ -7,6 +7,7 @@ import Prog from "./Prog"
 function Progreso (props){
 const[detail,setDetail]=useState(false)
 const[code,setCode]=useState('')
+const[fecha,setfecha]=useState('')
 
 const volver=()=>{
     setDetail(false)
@@ -14,6 +15,7 @@ const volver=()=>{
 
 const cambio=(a,b,c)=>{
     setCode(a)
+    setfecha(c)
     console.log(a)
     setDetail(true)
 }
@@ -23,7 +25,7 @@ return(
     <>
     {detail?
     <div className="bloqueCuerpo">
-        <Prog atras={volver} detail={detail} code={code}/>
+        <Prog atras={volver} fechaAsg={fecha} detail={detail} code={code}/>
     </div>
     :
     <div className="bloqueCuerpo">

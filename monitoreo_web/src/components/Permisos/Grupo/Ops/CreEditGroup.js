@@ -106,9 +106,9 @@ const CreEditGroup = (props) => {
             }
          
     
-            const actualizar = (e) =>{          //Seteo de valores default en los campos
+            const actualizar = (e) =>{
+                e.preventDefault();    
                 if(values.Permisos.length>1){
-                e.preventDefault();
                 values.Permisos=idP
                 props.addOrEdit(values);
                 setValues   ({...valores_iniciales})

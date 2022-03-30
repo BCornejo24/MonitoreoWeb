@@ -42,7 +42,7 @@ const CreEditManC = (props) => {
 
         
         const recepcion = (linkObject)=>{
-            alert(linkObject)
+            //alert(linkObject)
             var aux= {
                 Pass: linkObject.Pass,
                 Nombre: linkObject.Nombre,

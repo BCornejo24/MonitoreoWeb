@@ -51,11 +51,12 @@ const CreEditCurso = (props) => {
         }
      
 
-        const actualizar = (e) =>{          //Seteo de valores default en los campos
+        const actualizar = async (e) =>{          //Seteo de valores default en los campos
             e.preventDefault();
             if(liUsN.length>=0){
-                var t = valCur()
-                if(t){
+                //ar t = await valCur()
+                //console.log(t)
+                if(await valCur()){
             values.Ano=fechaact();
             //values.AlumnoID.push(...lus)
             props.addOrEdit(values,liUsN/*,liAlN*/);
@@ -70,20 +71,31 @@ const CreEditCurso = (props) => {
             
         }
 
-        const valCur = () =>{
-            var query = db.collection("Cursos")
-                query = query.where('Ano','==',fechaact())
-                query = query.where('Grado','==',values.Grado)
-                query = query.where('Letra','==',values.Letra)
-                query.get().then(querySnapshot=>{
-                    console.log(querySnapshot)
+        const valCur = async () =>{
+            const cookie = new Cookies
+
+            db.collection('ManagerColegio').where('UsuarioID','==',cookie.get('id_mayor')).get().then(query=>{
+                query.forEach(mC=>{
+                    mC.data().Prof_list.forEach(prof=>{
+                        var query = db.collection("Cursos")
+                            query = query.where('Ano','==',fechaact())
+                            query = query.where('Grado','==',values.Grado)
+                            query = query.where('Letra','==',values.Letra)
+                            query = query.where('ProfesorID','==',prof)
+                            query.get().then(querySnapshot=>{
+                            console.log(querySnapshot)
                         if(!querySnapshot.empty){ //falso si encuentra algun documento
                             alert('El curso que esta intentando crear: '+values.Grado+' °'+values.Letra+" ya existe.")
+                            console.log(querySnapshot.empty)
                             return false
-                        }else{
-                            alert('El curso que esta intentando crear: '+values.Grado+' °'+values.Letra+" no existe.")}})
-                            return true
-        }
+                        }})
+                            return true;
+                        })
+                    })
+                })
+            }
+
+            
 
         const nAlumno = (e) =>{
             e.preventDefault()
@@ -180,7 +192,7 @@ const CreEditCurso = (props) => {
 
         return (
             <div>
-                <button onClick={(e)=>{readListas(e)}}>Test Curso</button>
+                
             <div>
             <form className="card card-body" onSubmit={(e)=>{actualizar(e)}} >
                 <div className="form-group">

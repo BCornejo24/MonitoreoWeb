@@ -44,7 +44,7 @@ const CreEditRutin = (props) => {
             
             
             addNom(nam);
-            console.log(values.Actividades);
+            //console.log(values.Actividades);
 
         }
 
@@ -130,8 +130,8 @@ const CreEditRutin = (props) => {
         }
 
         const actualizar = (e) =>{          //Seteo de valores default en los campos
-            
-            
+            e.preventDefault()
+            if(values.Actividades.length>=2){
             if(perm=='Profesor_B'){
                 values.Autor=cookie.get('id_mayor')
             }
@@ -139,25 +139,27 @@ const CreEditRutin = (props) => {
             e.preventDefault();
             props.addOrEdit(values);
             setValues   ({...valores_iniciales})
-            freenom();
-            console.log(nomlist);
+            setnomList([])
+            }else{
+                alert('La Rutina debe tener al menos 2 Ejercicios')
+            }
         }
             
         
 
-        const freenom = () =>{
-            var aux = nomlist;
-            aux.map(val=>{
-                if(nomlist.includes(val)){
-                const index = nomlist.indexOf(val);
-                if (index > -1) {
-                  nomlist.splice(index, 1);
-                }
-            }
+        // const freenom = () =>{
+        //     var aux = nomlist;
+        //     aux.map(val=>{
+        //         if(nomlist.includes(val)){
+        //         const index = nomlist.indexOf(val);
+        //         if (index > -1) {
+        //           nomlist.splice(index, 1);
+        //         }
+        //     }
 
-            })
-            setrev(!rev);
-        }
+        //     })
+        //     setrev(!rev);
+        // }
         
         useEffect(()=>{
             if(props.idEx!==''){fillNombres();}

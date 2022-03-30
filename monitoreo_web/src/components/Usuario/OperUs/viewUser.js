@@ -43,7 +43,7 @@ const ViewUser = (props) =>{
                     
                     <div className="card-body">
                         <div className="d-flex justify-content-between">
-                        <h4><b>{exer.Nombre+' '+exer.Apellidos}</b></h4>
+                        <h4><b>{exer.Nombre+' '+exer.Apellido}</b></h4>
                         <div>
                             {props.isnested? '':<i className="material-icons text-danger" onClick={()=>bloquearUsuario(exer)} >close</i>}
                         </div>

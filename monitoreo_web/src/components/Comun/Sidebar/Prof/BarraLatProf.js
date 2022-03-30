@@ -2,10 +2,8 @@ import React, {useState} from "react";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai'
 import { NavLink } from "react-router-dom";
-import { BarraDat } from "./BarraDat";
 import { closeSes } from "../../closeSes";
-import Validar from "../../validar";
-import './BarraLat.css'
+import '../ADM/BarraLat.css'
 import { BarraDatProf } from "./BarraDatProf";
 
 function BarraLatProf(props){
